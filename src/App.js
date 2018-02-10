@@ -25,19 +25,18 @@ class App extends Component {
     }
     
     FullMod(){ // adds all the variables together to get one modification score.
-        let prof = parseInt(this.state.prof),
-            mod = parseInt(this.state.mod),
-            misc = parseInt(this.state.misc);
-        
+        let prof = parseInt(this.state.prof) || 2,
+            mod = parseInt(this.state.mod)|| 0,
+            misc = parseInt(this.state.misc)|| 0;
         return prof + mod + misc;
     }
     
     DamageMin(){
-        let num1 = parseInt(this.state.dieNum1),
-            num2 = parseInt(this.state.dieNum2),
-            num3 = parseInt(this.state.dieNum3),
-            mod = parseInt(this.state.mod),
-            miscDam = parseInt(this.state.miscDam);
+        let num1 = parseInt(this.state.dieNum1)|| 0,
+            num2 = parseInt(this.state.dieNum2)|| 0,
+            num3 = parseInt(this.state.dieNum3)|| 0,
+            mod = parseInt(this.state.mod)|| 0,
+            miscDam = parseInt(this.state.miscDam)|| 0;
         
         let one = 1 * num1,
             two = 1 * num2,
@@ -48,14 +47,14 @@ class App extends Component {
     }
     
         DamageAvg(){
-        let dam1 = parseFloat(this.state.dieDam1),
-            num1 = parseInt(this.state.dieNum1),
-            dam2 = parseFloat(this.state.dieDam2),
-            num2 = parseInt(this.state.dieNum2),
-            dam3 = parseFloat(this.state.dieDam3),
-            num3 = parseInt(this.state.dieNum3),
-            mod = parseInt(this.state.mod),
-            miscDam = parseInt(this.state.miscDam);
+        let dam1 = parseFloat(this.state.dieDam1)|| 0,
+            num1 = parseInt(this.state.dieNum1)|| 0,
+            dam2 = parseFloat(this.state.dieDam2)|| 0,
+            num2 = parseInt(this.state.dieNum2)|| 0,
+            dam3 = parseFloat(this.state.dieDam3)|| 0,
+            num3 = parseInt(this.state.dieNum3)|| 0,
+            mod = parseInt(this.state.mod)|| 0,
+            miscDam = parseInt(this.state.miscDam)|| 0;
         
         let one = dam1 * num1,
             two = dam2 * num2,
@@ -67,14 +66,14 @@ class App extends Component {
     }
     
         DamageMax(){
-        let dam1 = parseFloat(this.state.dieDam1),
-            num1 = parseInt(this.state.dieNum1),
-            dam2 = parseFloat(this.state.dieDam2),
-            num2 = parseInt(this.state.dieNum2),
-            dam3 = parseFloat(this.state.dieDam3),
-            num3 = parseInt(this.state.dieNum3),
-            mod = parseInt(this.state.mod),
-            miscDam = parseInt(this.state.miscDam);
+        let dam1 = parseFloat(this.state.dieDam1)||0,
+            num1 = parseInt(this.state.dieNum1)|| 0,
+            dam2 = parseFloat(this.state.dieDam2)|| 0,
+            num2 = parseInt(this.state.dieNum2)|| 0,
+            dam3 = parseFloat(this.state.dieDam3)|| 0,
+            num3 = parseInt(this.state.dieNum3)|| 0,
+            mod = parseInt(this.state.mod)|| 0,
+            miscDam = parseInt(this.state.miscDam)|| 0;
         
         let one = dam1 - .5;
             one = one * 2;

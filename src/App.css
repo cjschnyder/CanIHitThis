@@ -61,6 +61,7 @@ body{
     background:#242528;
     position: relative;
     padding:0px;
+    height:calc(100vh - 150px);
 }
 
 .switcherBtn {

@@ -1,0 +1,23 @@
+.table {
+  border-collapse: collapse;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 15px; }
+  .table .table-header {
+    border-bottom: 2px solid #242528; }
+    .table .table-header th {
+      min-width: 65px;
+      padding: 3px 10px;
+      text-align: left; }
+  .table tbody > tr {
+    border-bottom: 2px solid #242528; }
+    .table tbody > tr td {
+      min-width: 65px;
+      padding: 3px 10px;
+      text-align: left; }
+  .table tbody tr:nth-child(odd) {
+    background-color: #f7dcc2; }
+  .table tbody tr:hover {
+    background-color: #97fb98;
+    transition-duration: .75s; }

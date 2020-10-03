@@ -1,0 +1,115 @@
+.dice-stats {
+  text-align: center;
+  flex: 1 100%;
+  width: 100%;
+  color: white;
+
+  header {
+    background-color: #242528;
+    height: 150px;
+    padding: 5px;
+    margin: 0px;
+
+    .dice-logo {
+      height: 100px;
+      margin: 0px auto;
+    }
+
+    .title {
+      margin: 0px;
+      font-size: 28px;
+    }
+  }
+  .wrapper {
+    display: flex;
+
+    .input-and-damage {
+      background-color: #242528;
+      height: calc(100vh - 160px);
+      flex-flow: row wrap;
+      order: 1;
+      flex: 1;
+      h2{
+        margin: 10px 0px;
+      }
+      .inputs{
+        padding: 5px;
+        display:flex;
+        min-height: 25px;
+        span{
+          order:1;
+          flex:1;
+        }
+        input{
+          order:2;
+          flex:1;
+          margin-right: 10px;
+        }
+      }
+      .ac-input{
+        padding: 5px;
+        display:flex;
+        span{
+          order: 1;
+          flex: 1;
+        }
+        .ac-start{
+          order: 2;
+          flex: 1;
+          margin-right: 10px;
+        }
+        .ac-end{
+          order: 4;
+          flex: 1;
+          margin-right: 10px;
+        }
+      }
+      .dice-inputs{
+        display:flex;
+        .die-field{
+          flex: 1;
+          margin-top: 10px;
+          input, select {
+            display:inline-block;
+            width:45px;
+            margin-left: 15px;
+          }
+          select{
+            color: #000;
+            background: #fff;
+          }
+        }
+      }
+      .damage-numbers{
+        display:flex;
+        margin-top:10px;
+        > div{
+          flex:1;
+          flex-direction: column;
+          display:flex;
+          .damage-average{
+            font-size: 32px;
+          }
+        }
+      }
+    }
+
+    .data-table {
+      background-color: #fafafa;
+      color: #242528;
+      height: calc(100vh - 160px);
+      overflow: scroll;
+      flex-flow: row wrap;
+      order: 2;
+      flex: 3;
+
+      .no-attacks{
+        text-align: left;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-left: 15px;
+      }
+    }
+  }
+}

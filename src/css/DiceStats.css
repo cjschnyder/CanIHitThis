@@ -61,6 +61,31 @@
           .dice-stats .wrapper .input-and-damage .dice-inputs .die-field select {
             color: #000;
             background: #fff; }
+        .dice-stats .wrapper .input-and-damage .dice-inputs .subtract-die {
+          text-align: center;
+          margin-top: 7px;
+          margin-right: 10px;
+          padding: 3px 5px; }
+          .dice-stats .wrapper .input-and-damage .dice-inputs .subtract-die:hover {
+            background-color: #37383b;
+            cursor: pointer; }
+          .dice-stats .wrapper .input-and-damage .dice-inputs .subtract-die:active {
+            color: #242528;
+            background-color: #fafafa;
+            cursor: pointer; }
+      .dice-stats .wrapper .input-and-damage .add-die {
+        border: 2px solid #999;
+        width: 100px;
+        padding: 5px;
+        margin: 5px auto;
+        border-radius: 3px; }
+        .dice-stats .wrapper .input-and-damage .add-die:hover {
+          background-color: #37383b;
+          cursor: pointer; }
+        .dice-stats .wrapper .input-and-damage .add-die:active {
+          color: #242528;
+          background-color: #fafafa;
+          cursor: pointer; }
       .dice-stats .wrapper .input-and-damage .damage-numbers {
         display: flex;
         margin-top: 10px; }

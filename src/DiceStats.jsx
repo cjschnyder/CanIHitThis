@@ -13,7 +13,7 @@ class DiceStats extends Component {
             miscToHit: 0,
             miscDamage: 0,
             acRange: [6,25],
-            dice: [[0, 2.5],[0, 2.5],[0, 2.5]]
+            dice: [[0, 2.5]]
         };
     }
 
@@ -165,8 +165,29 @@ class DiceStats extends Component {
                                         <option value="6.5">d12</option>
                                     </select>
                                 </div>
+                                <div 
+                                    className="subtract-die"
+                                    onClick={ (index) => {
+                                        const subDie = dice;
+                                        subDie.splice(index, 1);
+                                        this.setState({dice: subDie});
+                                      }
+                                    }
+                                >
+                                    X
+                                </div>
                             </div>
                         )}
+                        <div 
+                            className="add-die"
+                            onClick={() => {
+                                const addDie = dice;
+                                addDie.push([0, 2.5])
+                                this.setState({dice: addDie});
+                            }}
+                        >
+                            + Add a Die
+                        </div>
                         <div className="damage-numbers">
                             <div>
                                 <span>Damage Min.</span>

@@ -12,6 +12,7 @@ class DiceStats extends Component {
             abilityMod: 0,
             miscToHit: 0,
             miscDamage: 0,
+            addScoreToDamage: true,
             acRange: [6,25],
             dice: [[0, 2.5]]
         };
@@ -24,11 +25,12 @@ class DiceStats extends Component {
             abilityMod,
             miscToHit,
             miscDamage,
+            addScoreToDamage,
             acRange,
             dice
         } = this.state;
 
-        const fullMod = (parseInt(proficiency) || 2) + (parseInt(abilityMod) || 0) + (parseInt(miscToHit) || 0);
+        const fullMod = (parseInt(proficiency, 10) || 2) + (parseInt(abilityMod, 10) || 0) + (parseInt(miscToHit, 10) || 0);
         const factorial = (n) => n === 0 ? 1 : n * factorial(n - 1);
 
         const normalDistribution = () => {
@@ -46,7 +48,7 @@ class DiceStats extends Component {
         };
 
         const exactHitChance = (hit, miss) => { // i.e. odds that in 7 attacks it'll hit exactly 5 times no more or less, but all.
-            let exactHitChances = [];
+            const exactHitChances = [];
             for (let n=1; n < attacks; n++){
                 const hits = Math.pow(hit, n);
                 const misses = Math.pow(miss, attacks - n);
@@ -58,7 +60,7 @@ class DiceStats extends Component {
         };
 
         const hitChanceOrGreater = (exactHitChanceForAc, allHitChance) => {
-            let greaterHitChance = [];
+            const greaterHitChance = [];
             for (let n=0; n < attacks; n++){
                 let addHit = 0;
                 for (let m=n; m < attacks - 1; m++) {
@@ -72,8 +74,8 @@ class DiceStats extends Component {
 
         const oneHitCalc = () => {
             let ac = acRange[0];
-            let decimalPercents = [];
-            while(ac <= parseInt(acRange[1])){
+            const decimalPercents = [];
+            while(ac <= parseInt(acRange[1], 10)){
                 const hitChance = ((20 - ac) + fullMod + 1)/20;
                 hitChance > .95 ? decimalPercents.push(.95) :
                     hitChance < .05 ? decimalPercents.push(.05) : decimalPercents.push(hitChance);
@@ -83,7 +85,7 @@ class DiceStats extends Component {
         };
 
         const multiHitCalc = () => {
-            let percents = [];
+            const percents = [];
             for (let n=0; n < oneHitCalc().length; n++) {
                 const hit = oneHitCalc()[n];
                 const miss = 1 - hit;
@@ -94,6 +96,43 @@ class DiceStats extends Component {
             }
             return percents;
         };
+        
+        const minDam = () =>{
+            let total = 0;
+            const rDam = parseInt(miscDamage, 10) || 0,
+                  mod = parseInt(abilityMod, 10) || 0;
+            dice.map(die => {
+                total = total + parseInt(die[0], 10) || 0;
+            })
+            addScoreToDamage ? total = total+mod+rDam : total=total+rDam;
+            return total;
+        }
+        
+        const avgDam = () =>{
+            let total = 0;
+            const rDam = parseInt(miscDamage, 10) || 0,
+                  mod = parseInt(abilityMod, 10) || 0;
+            dice.map(die => {
+                const numOf = parseInt(die[0], 10) || 0,
+                dieSize = parseFloat(die[1]) || 0;
+                total = total + (dieSize * numOf);
+            })
+            addScoreToDamage ? total = total+mod+rDam : total=total+rDam;
+            return Math.floor(total);
+        }
+        
+        const maxDam = () =>{
+            let total = 0;
+            const rDam = parseInt(miscDamage, 10) || 0,
+                  mod = parseInt(abilityMod, 10) || 0;
+            dice.map(die => {
+                const numOf = parseInt(die[0], 10) || 0,
+                dieSize = (parseFloat(die[1]) - 0.5) * 2 || 0;
+                total = total + (dieSize * numOf);
+            })
+            addScoreToDamage ? total = total+mod+rDam : total=total+rDam;
+            return total;
+        }
 
         return (
             <div className='dice-stats'>
@@ -121,7 +160,11 @@ class DiceStats extends Component {
                         </div>
                         <div className='inputs'>
                             <span>Ability Score Modifier</span>
-                            <input value={abilityMod} onChange={(e) => {this.setState({abilityMod: e.target.value})}}/>
+                            <input value={abilityMod} onChange={(e) => {
+                                    e.target.value > 50 ?
+                                        this.setState({abilityMod: 50}) :
+                                        this.setState({abilityMod: e.target.value});
+                            }}/>
                         </div>
                         <div className='inputs'>
                             <span>Misc. Modifier</span>
@@ -129,7 +172,11 @@ class DiceStats extends Component {
                         </div>
                         <div className='inputs'>
                             <span>Misc. Damage Modifier</span>
-                            <input value={miscDamage} onChange={(e) => {this.setState({miscDamage: e.target.value})}}/>
+                            <input value={miscDamage} onChange={(e) => {
+                                    e.target.value > 100 ?
+                                        this.setState({miscDamage: 100}) :
+                                        this.setState({miscDamage: e.target.value});
+                            }}/>
                         </div>
                         <div className='ac-input'>
                             <span>AC Range</span>
@@ -147,17 +194,39 @@ class DiceStats extends Component {
                             />
                         </div>
                         <h2>Damage Dice</h2>
-                        <input type="checkbox" checked />
+                        <input 
+                            type="checkbox" 
+                            checked={addScoreToDamage}
+                            onChange={() => {this.setState({addScoreToDamage: !addScoreToDamage})}}
+                        />
                         <span>Add ability score to damage</span>
                         {dice.map((die, index) =>
                             <div className='dice-inputs'>
                                 <div className="die-field">
                                     <span># of Dice</span>
-                                    <input value={die[0]} />
+                                    <input 
+                                        value={die[0]}
+                                        onChange={(e) => {
+                                            let updatedDice = dice;
+                                            const newNum = e.target.value > 100 ?
+                                                [100, die[1]] :
+                                                [e.target.value, die[1]];
+                                            updatedDice[index] = newNum;
+                                            this.setState({dice: updatedDice})
+                                        }}
+                                    />
                                 </div>
                                 <div className="die-field">
                                     <span>Die Type</span>
-                                    <select value={die[1]}>
+                                    <select 
+                                        value={die[1]}
+                                        onChange={(e) => {
+                                            let updatedDice = dice;
+                                            const newDie = [die[0], e.target.value];
+                                            updatedDice[index] = newDie;
+                                            this.setState({dice: updatedDice})
+                                        }}
+                                    >
                                         <option value="2.5">d4</option>
                                         <option value="3.5">d6</option>
                                         <option value="4.5">d8</option>
@@ -167,7 +236,7 @@ class DiceStats extends Component {
                                 </div>
                                 <div 
                                     className="subtract-die"
-                                    onClick={ (index) => {
+                                    onClick={() => {
                                         const subDie = dice;
                                         subDie.splice(index, 1);
                                         this.setState({dice: subDie});
@@ -182,7 +251,7 @@ class DiceStats extends Component {
                             className="add-die"
                             onClick={() => {
                                 const addDie = dice;
-                                addDie.push([0, 2.5])
+                                addDie.length >= 5 ? null : addDie.push([0, 2.5]);
                                 this.setState({dice: addDie});
                             }}
                         >
@@ -191,20 +260,20 @@ class DiceStats extends Component {
                         <div className="damage-numbers">
                             <div>
                                 <span>Damage Min.</span>
-                                <span>0</span>
+                                <span>{minDam()}</span>
                             </div>
                             <div>
                                 <span>Damage Avg.</span>
-                                <span className="damage-average">0</span>
+                                <span className="damage-average">{avgDam()}</span>
                             </div>
                             <div>
                                 <span>Damage Max</span>
-                                <span>0</span>
+                                <span>{maxDam()}</span>
                             </div>
                         </div>
                     </div>
                     <div className='data-table'>
-                        <TableDisplay attacks={attacks} acStart={parseInt(acRange[0]) || 0} hitChances={multiHitCalc()}/>
+                        <TableDisplay attacks={attacks} acStart={parseInt(acRange[0], 10) || 0} hitChances={multiHitCalc()}/>
                     </div>
                 </div>
             </div>

@@ -1,16 +1,32 @@
 {
-  "name": "test-app",
-  "version": "0.1.0",
+  "name": "can-i-hit-this",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-scripts": "1.0.16"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^1.0.16"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "redact-scripts eject",
+    "scss": "node-sass --watch src/scss -o src/css"
+  },
+  "description": "Will fill this out as part of app clean up.",
+  "main": "index.jsx",
+  "devDependencies": {
+    "node-sass": "^4.14.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjschnyder/CanIHitThis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjschnyder/CanIHitThis/issues"
+  },
+  "homepage": ""
 }

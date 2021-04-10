@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './dTwentyIconWPerc.png';
 import TableDisplay from './TableDisplay';
 import './css/DiceStats.css';
+import {toHitCalculation} from './StatSpells';
 
 class DiceStats extends Component {
     constructor(props) {
@@ -30,72 +31,7 @@ class DiceStats extends Component {
             dice
         } = this.state;
 
-        const fullMod = (parseInt(proficiency, 10) || 2) + (parseInt(abilityMod, 10) || 0) + (parseInt(miscToHit, 10) || 0);
-        const factorial = (n) => n === 0 ? 1 : n * factorial(n - 1);
-
-        const normalDistribution = () => {
-            let distribution = [];
-            for(let n=1; n <= Math.floor(attacks/2); n++){
-                const standardDeviation = (factorial(attacks)/factorial(attacks - n))/factorial(n);
-                distribution.push(standardDeviation);
-            }
-
-            Number.isInteger(attacks/2) ?
-                distribution = distribution.concat(distribution.slice(0, distribution.length - 1).reverse()) :
-                distribution = distribution.concat(distribution.slice().reverse());
-
-            return distribution
-        };
-
-        const exactHitChance = (hit, miss) => { // i.e. odds that in 7 attacks it'll hit exactly 5 times no more or less, but all.
-            const exactHitChances = [];
-            for (let n=1; n < attacks; n++){
-                const hits = Math.pow(hit, n);
-                const misses = Math.pow(miss, attacks - n);
-                const exactHitChance = (hits * misses) * normalDistribution()[n-1];
-
-                exactHitChances.push(exactHitChance * 100);
-            }
-            return exactHitChances;
-        };
-
-        const hitChanceOrGreater = (exactHitChanceForAc, allHitChance) => {
-            const greaterHitChance = [];
-            for (let n=0; n < attacks; n++){
-                let addHit = 0;
-                for (let m=n; m < attacks - 1; m++) {
-                    addHit = addHit + exactHitChanceForAc[m];
-                }
-                addHit = addHit + allHitChance;
-                greaterHitChance.push(parseFloat(Math.round(addHit * 100)/100).toFixed(1))
-            }
-            return greaterHitChance;
-        };
-
-        const oneHitCalc = () => {
-            let ac = acRange[0];
-            const decimalPercents = [];
-            while(ac <= parseInt(acRange[1], 10)){
-                const hitChance = ((20 - ac) + fullMod + 1)/20;
-                hitChance > .95 ? decimalPercents.push(.95) :
-                    hitChance < .05 ? decimalPercents.push(.05) : decimalPercents.push(hitChance);
-                ac++;
-            }
-            return decimalPercents;
-        };
-
-        const multiHitCalc = () => {
-            const percents = [];
-            for (let n=0; n < oneHitCalc().length; n++) {
-                const hit = oneHitCalc()[n];
-                const miss = 1 - hit;
-                const allHit = (Math.pow(hit, attacks)) * 100;
-
-                const singleRowPercents = exactHitChance(hit, miss);
-                percents.push(hitChanceOrGreater(singleRowPercents, allHit));
-            }
-            return percents;
-        };
+        const toHitMod = (parseInt(proficiency, 10) || 2) + (parseInt(abilityMod, 10) || 0) + (parseInt(miscToHit, 10) || 0);
         
         const minDam = () =>{
             let total = 0;
@@ -273,7 +209,11 @@ class DiceStats extends Component {
                         </div>
                     </div>
                     <div className='data-table'>
-                        <TableDisplay attacks={attacks} acStart={parseInt(acRange[0], 10) || 0} hitChances={multiHitCalc()}/>
+                        <TableDisplay 
+                            attacks={attacks} 
+                            acStart={parseInt(acRange[0], 10) || 0} 
+                            hitChances={toHitCalculation(acRange, attacks, toHitMod)}
+                        />
                     </div>
                 </div>
             </div>

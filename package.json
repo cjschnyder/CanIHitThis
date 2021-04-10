@@ -5,7 +5,7 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^1.0.16"
+    "react-scripts": "^1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -14,7 +14,7 @@
     "eject": "redact-scripts eject",
     "scss": "node-sass --watch src/scss -o src/css"
   },
-  "description": "Will fill this out as part of app clean up.",
+  "description": "From the deep realms of Anstrelax comes the dark magic of math.",
   "main": "index.jsx",
   "devDependencies": {
     "node-sass": "^4.14.1"

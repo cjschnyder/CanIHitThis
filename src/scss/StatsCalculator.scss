@@ -1,31 +1,10 @@
-.dice-stats {
-  text-align: center;
-  flex: 1 100%;
-  width: 100%;
-  color: white;
-
-  header {
-    background-color: #242528;
-    height: 150px;
-    padding: 5px;
-    margin: 0px;
-
-    .dice-logo {
-      height: 100px;
-      margin: 0px auto;
-    }
-
-    .title {
-      margin: 0px;
-      font-size: 28px;
-    }
-  }
+#hitThis {
   .wrapper {
     display: flex;
 
     .input-and-damage {
       background-color: #242528;
-      height: calc(100vh - 160px);
+      height: calc(100vh - 90px);
       flex-flow: row wrap;
       order: 1;
       flex: 1;
@@ -128,7 +107,7 @@
     .data-table {
       background-color: #fafafa;
       color: #242528;
-      height: calc(100vh - 160px);
+      height: calc(100vh - 90px);
       overflow: scroll;
       flex-flow: row wrap;
       order: 2;

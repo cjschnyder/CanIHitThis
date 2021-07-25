@@ -1,0 +1,51 @@
+#hitThis {
+  text-align: center;
+  flex: 1 100%;
+  width: 100%;
+  color: white;
+
+  header {
+    background-color: #242528;
+    height: 80px;
+    padding: 5px;
+    margin: 0px;
+    flex-direction:row; 
+    display: flex;
+
+    .dice-logo {
+        height: 70px;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+
+    .title {
+      margin-top: 25px;
+      font-size: 28px;
+    }
+      
+    .nav-menu {
+        display: flex;
+        flex-direction:row; 
+        .link {
+            height: 50px;
+            margin-left: 20px;
+            margin-top: 15px;
+            padding-left: 10px;
+            border-left: 2px solid #fff;
+            transform: skewX(-15deg);
+            span {
+                color: white;
+                transform: skewX(15deg);
+                display: inline-block;
+                font-weight: bold;
+                padding-top: 17px;
+                text-decoration: none;
+                
+                & :active {
+                    color: #242528;
+                }
+            }
+        }      
+    }
+  }
+}

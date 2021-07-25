@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DiceStats from './DiceStats';
+import CanIHitThis from './CanIHitThis';
 import './css/index.css';
 
 ReactDOM.render(
-    <DiceStats />,
+    <CanIHitThis />,
     document.getElementById('react-container')
 );

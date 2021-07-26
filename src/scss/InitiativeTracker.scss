@@ -1,0 +1,18 @@
+.wrapper{
+    .initiative-list {
+        background-color: #242528;
+        height: calc(100vh - 90px);
+        flex-flow: row wrap;
+        order: 1;
+        flex: 1;
+    }
+    .character-info {
+        background-color: #fafafa;
+        color: #242528;
+        height: calc(100vh - 90px);
+        overflow: scroll;
+        flex-flow: row wrap;
+        order: 2;
+        flex: 1;
+    }
+}

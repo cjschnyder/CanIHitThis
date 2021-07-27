@@ -176,7 +176,7 @@ class StatsCalculator extends Component {
                         </div>
                     )}
                     <div 
-                        className="add-die"
+                        className="button"
                         onClick={() => {
                             const addDie = dice;
                             addDie.length >= 5 ? null : addDie.push([0, 2.5]);

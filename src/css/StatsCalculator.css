@@ -56,19 +56,6 @@
           color: #242528;
           background-color: #fafafa;
           cursor: pointer; }
-    .wrapper .input-and-damage .add-die {
-      border: 2px solid #999;
-      width: 100px;
-      padding: 5px;
-      margin: 5px auto;
-      border-radius: 3px; }
-      .wrapper .input-and-damage .add-die:hover {
-        background-color: #37383b;
-        cursor: pointer; }
-      .wrapper .input-and-damage .add-die:active {
-        color: #242528;
-        background-color: #fafafa;
-        cursor: pointer; }
     .wrapper .input-and-damage .damage-numbers {
       display: flex;
       margin-top: 10px; }

@@ -1,15 +1,30 @@
-.wrapper .initiative-list {
+#hitThis .initiative-list {
   background-color: #242528;
   height: calc(100vh - 90px);
   flex-flow: row wrap;
   order: 1;
-  flex: 1; }
+  flex: 2; }
+  #hitThis .initiative-list .title-and-options {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px; }
+    #hitThis .initiative-list .title-and-options .button {
+      margin-top: 14px; }
+      #hitThis .initiative-list .title-and-options .button span {
+        display: inline-block;
+        padding: 0px 5px;
+        font-size: 1.5em; }
+  #hitThis .initiative-list .character {
+    margin: 10px;
+    height: 100px;
+    border: 2px solid #fff;
+    border-radius: 5px; }
 
-.wrapper .character-info {
+#hitThis .character-info {
   background-color: #fafafa;
   color: #242528;
   height: calc(100vh - 90px);
   overflow: scroll;
   flex-flow: row wrap;
   order: 2;
-  flex: 1; }
+  flex: 3; }

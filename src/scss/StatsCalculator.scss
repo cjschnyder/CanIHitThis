@@ -72,22 +72,6 @@
                  }
               }
           }
-            .add-die{
-                border: 2px solid #999;
-                width: 100px;
-                padding: 5px;
-                margin: 5px auto;
-                border-radius: 3px;
-                &:hover{
-                    background-color: #37383b;
-                    cursor:pointer;
-                }
-                &:active{
-                    color: #242528;
-                    background-color: #fafafa;
-                    cursor:pointer;
-                }
-            }
           .damage-numbers{
             display:flex;
             margin-top:10px;

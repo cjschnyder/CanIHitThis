@@ -17,8 +17,40 @@
   #hitThis .initiative-list .character {
     margin: 10px;
     height: 100px;
-    border: 2px solid #fff;
-    border-radius: 5px; }
+    border: 2px solid #fafafa;
+    border-radius: 5px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: row; }
+    #hitThis .initiative-list .character .initiative {
+      background: #242528;
+      width: 80px;
+      height: 100%;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px; }
+      #hitThis .initiative-list .character .initiative span {
+        margin: 10px 0px;
+        font-size: 1.25em; }
+      #hitThis .initiative-list .character .initiative input {
+        width: 50px;
+        height: 30px;
+        font-size: 1.25em;
+        text-align: center; }
+    #hitThis .initiative-list .character .character-stats {
+      color: #242528;
+      font-weight: bold;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      text-align: left; }
+      #hitThis .initiative-list .character .character-stats .character-name {
+        font-size: 1.5em; }
+      #hitThis .initiative-list .character .character-stats .health-and-ac, #hitThis .initiative-list .character .character-stats .conditions {
+        margin-top: 5px; }
+        #hitThis .initiative-list .character .character-stats .health-and-ac span, #hitThis .initiative-list .character .character-stats .conditions span {
+          margin-right: 20px; }
+      #hitThis .initiative-list .character .character-stats .conditions span {
+        margin-right: 5px; }
 
 #hitThis .character-info {
   background-color: #fafafa;

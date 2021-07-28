@@ -49,3 +49,5 @@
       color: #242528;
       background-color: #fafafa;
       cursor: pointer; }
+  #hitThis span {
+    display: inline-block; }

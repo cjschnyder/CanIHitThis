@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Sortable } from '@shopify/draggable';
+import React, { useRef, Component } from 'react';
+import Sortable from '@shopify/draggable/lib/sortable';
 import CharacterCard from './CharacterCard';
 import './css/InitiativeTracker.css';
 
@@ -15,11 +15,12 @@ class InitiativeTracker extends Component {
         const {
             characters
         } = this.state
+        
         return(
             <div className='wrapper'>
-                <div className='initiative-list'>
-                    <div className="title-and-options">
-                        <h2>Beans</h2>
+                <section className='initiative-list'>
+                    <div className='title-and-options'>
+                        <h2>Initiative Order</h2>
                         <div>
                             <div className="button">
                                 <span>+</span>
@@ -27,11 +28,14 @@ class InitiativeTracker extends Component {
                         </div>
                     </div>
                     {characters.map(char => 
-                        <CharacterCard />               
+                        <CharacterCard />
                     )}
-                </div>
-                <div className='character-info'>
-                </div>
+                </section>
+                <section className='character-info'>
+                </section>
+                <section id='add-characters-modal'>
+                    
+                </section>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 #hitThis .initiative-list {
+  z-index: 1;
   background-color: #242528;
   height: calc(100vh - 90px);
   flex-flow: row wrap;
@@ -12,7 +13,7 @@
       margin-top: 14px; }
       #hitThis .initiative-list .title-and-options .button span {
         display: inline-block;
-        padding: 0px 5px;
+        padding: 0 5px;
         font-size: 1.5em; }
   #hitThis .initiative-list .character {
     margin: 10px;
@@ -53,6 +54,7 @@
         margin-right: 5px; }
 
 #hitThis .character-info {
+  z-index: 1;
   background-color: #fafafa;
   color: #242528;
   height: calc(100vh - 90px);
@@ -60,3 +62,49 @@
   flex-flow: row wrap;
   order: 2;
   flex: 3; }
+
+#hitThis .add-characters-modal-wrapper #add-characters-modal {
+  display: none;
+  background-color: #242528;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 3;
+  left: 50%;
+  top: 150px;
+  position: absolute;
+  width: 500px;
+  height: 600px;
+  border-radius: 10px;
+  transform: translateX(-50%);
+  border: 2px solid #fafafa; }
+
+#hitThis .add-characters-modal-wrapper.show {
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(180, 180, 180, 0.6); }
+  #hitThis .add-characters-modal-wrapper.show #add-characters-modal {
+    display: block; }
+
+#hitThis .add-character-info {
+  display: flex;
+  flex-direction: column; }
+  #hitThis .add-character-info span {
+    margin-right: 10px; }
+  #hitThis .add-character-info > div {
+    margin-left: 20px;
+    text-align: left; }
+
+#hitThis .character-modal-title {
+  display: flex;
+  flex-direction: row; }
+  #hitThis .character-modal-title h2 {
+    margin-left: 20px; }
+  #hitThis .character-modal-title .button {
+    margin-right: 6px;
+    border: none;
+    padding-top: 15px;
+    font-size: 1.25em;
+    width: 40px; }

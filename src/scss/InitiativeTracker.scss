@@ -1,5 +1,6 @@
 #hitThis{
     .initiative-list {
+        z-index: 1;
         background-color: #242528;
         height: calc(100vh - 90px);
         flex-flow: row wrap;
@@ -10,13 +11,13 @@
             display: flex;
             flex-direction: row;
             margin-left:20px;
-            
+        
             .button {
-                
                 margin-top: 14px;
+                
                 span {
                     display:inline-block;
-                    padding: 0px 5px;
+                    padding: 0 5px;
                     font-size: 1.5em;
                 }
             }
@@ -81,6 +82,7 @@
         }
     }
     .character-info {
+        z-index: 1;
         background-color: #fafafa;
         color: #242528;
         height: calc(100vh - 90px);
@@ -88,5 +90,67 @@
         flex-flow: row wrap;
         order: 2;
         flex: 3;
+    }
+    
+    .add-characters-modal-wrapper {
+        #add-characters-modal {
+            display: none;
+            background-color: #242528;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 3;
+            left: 50%;
+            top: 150px;
+            position: absolute;
+            width: 500px;
+            height: 600px;
+            border-radius: 10px;
+            transform: translateX(-50%);
+            border: 2px solid #fafafa;
+        }
+        
+        &.show {
+            position: absolute;
+            top: 0px;
+            z-index: 2;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(180, 180, 180, 0.6);
+            
+            #add-characters-modal {
+                display: block;
+            }
+        }
+    }
+    
+    .add-character-info {
+        display: flex;
+        flex-direction: column;
+        
+        span {
+            margin-right: 10px;
+        }
+        
+        > div {
+            margin-left: 20px;
+            text-align: left;
+        }
+    }
+    
+    .character-modal-title {
+        display: flex;
+        flex-direction: row;
+        
+        h2{
+            margin-left: 20px;
+        }
+        
+        .button {
+            margin-right: 6px;
+            border: none;
+            padding-top: 15px;
+            font-size: 1.25em;
+            width: 40px;
+        }
     }
 }

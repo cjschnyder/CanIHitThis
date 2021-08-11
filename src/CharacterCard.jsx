@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 class CharacterCard extends Component {
     render() {
+        const {
+            remove
+        } = this.props;
+
         return (
             <div className='character' >
                 <div className='initiative'>
@@ -18,6 +22,9 @@ class CharacterCard extends Component {
                         <span>Conditions:</span>
                         <input />
                     </div>
+                </div>
+                <div className='button' onClick={() => remove()}>
+                    Remove
                 </div>
             </div>
         )

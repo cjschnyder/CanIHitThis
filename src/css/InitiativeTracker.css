@@ -30,13 +30,10 @@
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px; }
       #hitThis .initiative-list .character .initiative span {
-        margin: 10px 0px;
+        margin: 10px 0;
         font-size: 1.25em; }
-      #hitThis .initiative-list .character .initiative input {
-        width: 50px;
-        height: 30px;
-        font-size: 1.25em;
-        text-align: center; }
+      #hitThis .initiative-list .character .initiative h2 {
+        margin-top: 0; }
     #hitThis .initiative-list .character .character-stats {
       color: #242528;
       font-weight: bold;
@@ -46,6 +43,8 @@
       text-align: left; }
       #hitThis .initiative-list .character .character-stats .character-name {
         font-size: 1.5em; }
+      #hitThis .initiative-list .character .character-stats .current-health {
+        width: 30px; }
       #hitThis .initiative-list .character .character-stats .health-and-ac, #hitThis .initiative-list .character .character-stats .conditions {
         margin-top: 5px; }
         #hitThis .initiative-list .character .character-stats .health-and-ac span, #hitThis .initiative-list .character .character-stats .conditions span {
@@ -80,7 +79,7 @@
 
 #hitThis .add-characters-modal-wrapper.show {
   position: absolute;
-  top: 0px;
+  top: 0;
   z-index: 2;
   width: 100vw;
   height: 100vh;
@@ -108,3 +107,8 @@
     padding-top: 15px;
     font-size: 1.25em;
     width: 40px; }
+
+#hitThis .character-settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; }

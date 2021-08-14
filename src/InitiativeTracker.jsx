@@ -13,7 +13,6 @@ class InitiativeTracker extends Component {
                 initiative: 0,
                 ac: 0,
                 maxHealth: 0,
-                health: 0,
                 conditions: '',
                 monster: false,
                 attacks: {
@@ -33,9 +32,9 @@ class InitiativeTracker extends Component {
         } = this.state
         
         const removeCharacter = (index) => {
-            const removedCharacterList = characters;
-            removedCharacterList.splice(index, 1);
-            this.setState({characters: removedCharacterList});
+            const updatedCharacterList = characters;
+            updatedCharacterList.splice(index, 1);
+            this.setState({characters: updatedCharacterList});
         }
         
         return(
@@ -50,7 +49,7 @@ class InitiativeTracker extends Component {
                         </div>
                     </div>
                     {characters.map((char, index) => 
-                        <CharacterCard remove={() => removeCharacter(index)}/>
+                        <CharacterCard character={char} remove={() => removeCharacter(index)}/>
                     )}
                 </section>
                 <section className='character-info'>

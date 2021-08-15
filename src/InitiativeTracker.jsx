@@ -1,4 +1,4 @@
-import React, { useRef, Component } from 'react';
+import React, { Component } from 'react';
 import Sortable from '@shopify/draggable/lib/sortable';
 import CharacterCard from './CharacterCard';
 import './css/InitiativeTracker.css';
@@ -14,13 +14,17 @@ class InitiativeTracker extends Component {
                 ac: 0,
                 maxHealth: 0,
                 conditions: '',
-                monster: false,
                 attacks: {
                     attackName: '',
                     toHit: 0
-                }
+                },
+                monster: false,
+                current: false
             },
             characters: [],
+            currentCharacterIndex: -1,
+            combat: false,
+            roundNumber: 0,
             addCharacterModal: false
         };
     }
@@ -28,6 +32,9 @@ class InitiativeTracker extends Component {
         const {
             addCharacter,
             characters,
+            currentCharacterIndex,
+            combat,
+            roundNumber,
             addCharacterModal
         } = this.state
         
@@ -37,19 +44,119 @@ class InitiativeTracker extends Component {
             this.setState({characters: updatedCharacterList});
         }
         
+        const sortCharacters = () => {
+            const sortedCharacterList = characters;
+            sortedCharacterList.sort((char1, char2) => char2.initiative - char1.initiative);
+            this.setState({characters: sortedCharacterList});
+        }
+        
+        const initiateCombat = () => {
+            const trackedCharacterList = characters;
+            trackedCharacterList[0].current = true;
+            this.setState({
+                combat: true,
+                roundNumber: 1,
+                currentCharacterIndex: 0,
+                characters: trackedCharacterList
+            });
+        }
+        
+        const stopCombat = () => {
+            const trackedCharacterList = characters;
+            trackedCharacterList[currentCharacterIndex].current = false;
+            this.setState({
+                combat: false,
+                roundNumber: 0,
+                currentCharacterIndex: -1,
+                characters: trackedCharacterList
+            });
+        }
+        
+        const nextInCombat = () => {
+            const trackedCharacterList = characters;
+            const incrementedCharacterIndex = currentCharacterIndex + 1;
+            const incrementedRound = roundNumber + 1;
+            trackedCharacterList[incrementedCharacterIndex] ?
+                (
+                    trackedCharacterList[currentCharacterIndex].current = false,
+                    trackedCharacterList[incrementedCharacterIndex].current = true
+                )
+            :   
+                (
+                    trackedCharacterList[currentCharacterIndex].current = false,
+                    trackedCharacterList[0].current = true
+                )
+            
+            this.setState({
+                characters: trackedCharacterList,
+                currentCharacterIndex: trackedCharacterList[0].current ? 0 : incrementedCharacterIndex,
+                roundNumber: trackedCharacterList[0].current ? incrementedRound : roundNumber
+            })
+                
+        }
+        
+        const prevInCombat = () => {
+            const trackedCharacterList = characters;
+            const decrementedCharacterIndex = currentCharacterIndex - 1;
+            const decrementedRound = roundNumber - 1;
+            
+            if (roundNumber > 1 || currentCharacterIndex > 0) {
+                trackedCharacterList[decrementedCharacterIndex] ?
+                    (
+                        trackedCharacterList[currentCharacterIndex].current = false,
+                        trackedCharacterList[decrementedCharacterIndex].current = true
+                    )
+                :   
+                    (
+                        trackedCharacterList[currentCharacterIndex].current = false,
+                        trackedCharacterList[trackedCharacterList.length - 1].current = true
+                    )
+
+                this.setState({
+                    characters: trackedCharacterList,
+                    currentCharacterIndex: trackedCharacterList[trackedCharacterList.length - 1].current ? trackedCharacterList.length - 1 : decrementedCharacterIndex,
+                    roundNumber: trackedCharacterList[trackedCharacterList.length - 1].current && roundNumber > 1 ? decrementedRound : roundNumber
+                })
+            }
+        }
+        
         return(
             <div className='wrapper'>
                 <section className='initiative-list'>
                     <div className='title-and-options'>
                         <h2>Initiative Order</h2>
-                        <div>
-                            <div className="button" onClick={() => this.setState({addCharacterModal: true})}>
-                                <span>+</span>
-                            </div>
-                        </div>
+                        {
+                            combat ?
+                                <div className='header-buttons'>
+                                    <div className="button" onClick={() => {characters.length && prevInCombat()}}>
+                                        <span>&#60;</span>
+                                    </div>
+                                     <div className="button" onClick={() => stopCombat()}>
+                                        <span>X</span>
+                                    </div>
+                                     <div className="button" onClick={() => {characters.length && nextInCombat()}}>
+                                        <span>&#62;</span>
+                                    </div>
+                                    <span>Round: {roundNumber}</span>
+                                </div>
+                            :
+                                <div className='header-buttons'>
+                                    <div className="button" onClick={() => this.setState({addCharacterModal: true})}>
+                                        <span>+</span>
+                                    </div>
+                                    <div className="button long" onClick={() => {
+                                        characters.length && (
+                                            sortCharacters(),
+                                            initiateCombat()
+                                        )
+                                    }}>
+                                        <span>Sort & Start Combat</span>
+                                    </div>
+                                </div>
+                        }
                     </div>
                     {characters.map((char, index) => 
-                        <CharacterCard character={char} remove={() => removeCharacter(index)}/>
+                        <CharacterCard character={char} remove={() => removeCharacter(index)} />
                     )}
                 </section>
                 <section className='character-info'>
@@ -124,7 +231,7 @@ class InitiativeTracker extends Component {
                                 }}/>
                             </div>
                             <div>
-                                <span>Monster?</span>
+                                <span>Check the box if this is a player</span>
                                 <input 
                                     type='checkbox'
                                     checked={addCharacter.monster}
@@ -154,22 +261,24 @@ class InitiativeTracker extends Component {
                             </div>
                             <div 
                                 className='button' 
-                                onClick={() => this.setState({
-                                    characters: characters.concat(addCharacter),
-                                    addCharacter: {
-                                        name: '',
-                                        initiative: 0,
-                                        ac: 0,
-                                        maxHealth: 0,
-                                        health: 0,
-                                        conditions: '',
-                                        monster: false,
-                                        attacks: {
-                                            attackName: '',
-                                            toHit: 0
+                                onClick={() => {
+                                    this.setState({
+                                        characters: characters.concat(addCharacter),
+                                        addCharacter: {
+                                            name: '',
+                                            initiative: 0,
+                                            ac: 0,
+                                            maxHealth: 0,
+                                            health: 0,
+                                            conditions: '',
+                                            monster: false,
+                                            attacks: {
+                                                attackName: '',
+                                                toHit: 0
+                                            }
                                         }
-                                    }
-                                })}
+                                    })
+                                }}
                             >
                                 Add Character
                             </div>

@@ -4,12 +4,14 @@ class CharacterCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentHealth: props.character.maxHealth
+            currentHealth: props.character.maxHealth,
+            conditions: props.character.conditions
         };
     }
     render() {
         const {
-            currentHealth
+            currentHealth,
+            conditions
         } = this.state;
         const {
             remove,
@@ -17,7 +19,7 @@ class CharacterCard extends Component {
         } = this.props;
 
         return (
-            <div className='character' >
+            <div className={`character ${character.current ? 'current' : ''}`} >
                 <div className='initiative'>
                     <span>Init.</span>
                     <h2>{character.initiative}</h2>
@@ -30,14 +32,17 @@ class CharacterCard extends Component {
                             <input 
                                 value={currentHealth} 
                                 className='current-health'
-                                onChange={(e) => e && this.setState({currentHealth: parseInt(e.target.value, 10) || 0})}
+                                onChange={(e) => this.setState({currentHealth: parseInt(e.target.value, 10) || 0})}
                             /> 
                             / {character.maxHealth}
                         </span>
                     </div>
                     <div className='conditions'>
                         <span>Conditions:</span>
-                        <input value={character.conditions} />
+                        <input 
+                            value={conditions} 
+                            onChange={(e) => this.setState({conditions: e.target.value})}
+                        />
                     </div>
                 </div>
                 <div className='character-settings'>

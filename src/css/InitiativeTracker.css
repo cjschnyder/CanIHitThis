@@ -10,11 +10,15 @@
     flex-direction: row;
     margin-left: 20px; }
     #hitThis .initiative-list .title-and-options .button {
-      margin-top: 14px; }
+      margin-top: 14px;
+      margin-left: 5px;
+      height: auto; }
+      #hitThis .initiative-list .title-and-options .button.long {
+        max-width: none; }
       #hitThis .initiative-list .title-and-options .button span {
         display: inline-block;
         padding: 0 5px;
-        font-size: 1.5em; }
+        font-size: 1.25em; }
   #hitThis .initiative-list .character {
     margin: 10px;
     height: 100px;
@@ -23,6 +27,8 @@
     background-color: #fafafa;
     display: flex;
     flex-direction: row; }
+    #hitThis .initiative-list .character.current {
+      box-shadow: 0px 0px 10px 6px #97fb98; }
     #hitThis .initiative-list .character .initiative {
       background: #242528;
       width: 80px;
@@ -107,6 +113,10 @@
     padding-top: 15px;
     font-size: 1.25em;
     width: 40px; }
+
+#hitThis .header-buttons {
+  display: flex;
+  flex-direction: row; }
 
 #hitThis .character-settings {
   display: flex;

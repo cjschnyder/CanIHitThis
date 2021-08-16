@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Sortable from '@shopify/draggable/lib/sortable';
 import CharacterCard from './CharacterCard';
 import './css/InitiativeTracker.css';
 
@@ -123,10 +122,10 @@ class InitiativeTracker extends Component {
         return(
             <div className='wrapper'>
                 <section className='initiative-list'>
-                    <div className='title-and-options'>
-                        <h2>Initiative Order</h2>
-                        {
-                            combat ?
+                    {
+                        combat ?
+                            <div className='title-and-options'>
+                                <h2>Round: {roundNumber}</h2>
                                 <div className='header-buttons'>
                                     <div className="button" onClick={() => {characters.length && prevInCombat()}}>
                                         <span>&#60;</span>
@@ -137,12 +136,14 @@ class InitiativeTracker extends Component {
                                      <div className="button" onClick={() => {characters.length && nextInCombat()}}>
                                         <span>&#62;</span>
                                     </div>
-                                    <span>Round: {roundNumber}</span>
                                 </div>
-                            :
+                            </div>
+                        :
+                            <div className='title-and-options'>
+                            <h2>Initiative Order</h2>
                                 <div className='header-buttons'>
                                     <div className="button" onClick={() => this.setState({addCharacterModal: true})}>
-                                        <span>+</span>
+                                        <span>+ Add</span>
                                     </div>
                                     <div className="button long" onClick={() => {
                                         characters.length && (
@@ -153,8 +154,8 @@ class InitiativeTracker extends Component {
                                         <span>Sort & Start Combat</span>
                                     </div>
                                 </div>
-                        }
-                    </div>
+                            </div>
+                    }
                     {characters.map((char, index) => 
                         <CharacterCard character={char} remove={() => removeCharacter(index)} />
                     )}
@@ -231,7 +232,7 @@ class InitiativeTracker extends Component {
                                 }}/>
                             </div>
                             <div>
-                                <span>Check the box if this is a player</span>
+                                <span>Is This a Monster?</span>
                                 <input 
                                     type='checkbox'
                                     checked={addCharacter.monster}

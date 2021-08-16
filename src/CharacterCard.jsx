@@ -53,6 +53,10 @@ class CharacterCard extends Component {
                         Edit
                     </div>
                 </div>
+                <div className='move-initiative'>
+                    <div className='button move-up' />
+                    <div className='button move-down' />
+                </div>
             </div>
         )
     }

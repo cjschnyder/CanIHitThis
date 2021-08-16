@@ -2,6 +2,7 @@
     .initiative-list {
         z-index: 1;
         background-color: #242528;
+        overflow: scroll;
         height: calc(100vh - 90px);
         flex-flow: row wrap;
         order: 1;
@@ -26,6 +27,11 @@
                     padding: 0 5px;
                     font-size: 1.25em;
                 }
+            }
+            
+            h2 {
+                margin-bottom: 0;
+                margin-right: auto;
             }
         }
         
@@ -169,11 +175,22 @@
     .header-buttons {
         display: flex;
         flex-direction: row;
+        margin-right: 10px;
     }
     
     .character-settings {
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        margin-top: 8px;
+        margin-left: 5px;
+        margin-right: auto;
+        
+        .button {
+            width: 60px;
+        }
+    }
+    
+    .move-initative {
+        
     }
 }

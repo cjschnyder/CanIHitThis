@@ -3,44 +3,35 @@ import React, { Component } from 'react';
 class CharacterCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            currentHealth: props.character.maxHealth,
-            conditions: props.character.conditions
-        };
     }
     render() {
         const {
-            currentHealth,
-            conditions
-        } = this.state;
-        const {
+            index,
             remove,
-            character,
+            characterInfo,
+            updateCurrentHealth
         } = this.props;
 
         return (
-            <div className={`character ${character.current ? 'current' : ''}`} >
+            <div className={`character ${characterInfo.current ? 'current' : ''}`} >
                 <div className='initiative'>
                     <span>Init.</span>
-                    <h2>{character.initiative}</h2>
+                    <h2>{characterInfo.initiative}</h2>
                 </div>
                 <div className='character-stats'>
-                    <span className='character-name'>{character.name}</span>
+                    <span className='character-name'>{characterInfo.name}</span>
                     <div className='health-and-ac'>
-                        <span>AC: {character.ac}</span>
+                        <span>AC: {characterInfo.ac}</span>
                         <span>Health: 
-                            <input 
-                                value={currentHealth} 
-                                className='current-health'
-                                onChange={(e) => this.setState({currentHealth: parseInt(e.target.value, 10) || 0})}
-                            /> 
-                            / {character.maxHealth}
+                             {characterInfo.currentHealth} 
+                            /{characterInfo.maxHealth}
                         </span>
                     </div>
                     <div className='conditions'>
                         <span>Conditions:</span>
-                        <input 
-                            value={conditions} 
+                        <input
+                            type="text"
+                            value={characterInfo.conditions} 
                             onChange={(e) => this.setState({conditions: e.target.value})}
                         />
                     </div>
@@ -51,6 +42,35 @@ class CharacterCard extends Component {
                     </div>
                     <div className='button'>
                         Edit
+                    </div>
+                </div>
+                <div className='change-health'>
+                    <div
+                        className='button heal'
+                        onClick={() => {
+                        updateCurrentHealth(
+                            index, 
+                            parseInt(document.querySelector('#health-input').value, 10) || 0,
+                            true
+                        );
+                        document.querySelector('#health-input').value = null;
+                        }}
+                    >
+                        <span>Heal</span>
+                    </div>
+                    <input id="health-input" type="text"/>
+                    <div
+                        className='button harm'
+                        onClick={() => {
+                        updateCurrentHealth(
+                            index, 
+                            parseInt(document.querySelector('#health-input').value, 10) || 0,
+                            false
+                        );
+                        document.querySelector('#health-input').value = null;
+                        }}
+                    >
+                        <span>Damage</span>
                     </div>
                 </div>
                 <div className='move-initiative'>

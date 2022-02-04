@@ -6,12 +6,14 @@ import './css/InitiativeTracker.css';
 class InitiativeTracker extends Component {
     constructor(props) {
         super(props);
+        this.updateHealth = this.updateHealth.bind(this);
         this.state = {
             addCharacter: {
                 name: '',
                 initiative: 0,
                 ac: 0,
                 maxHealth: 0,
+                currentHealth: 0,
                 conditions: '',
                 attacks: {
                     attackName: '',
@@ -27,6 +29,16 @@ class InitiativeTracker extends Component {
             addCharacterModal: false
         };
     }
+    
+    updateHealth(index, number, addHPBool) {
+        const updatedCharacterList = this.state.characters;
+            addHPBool ?
+                updatedCharacterList[index].currentHealth = updatedCharacterList[index].currentHealth + number
+            :
+                updatedCharacterList[index].currentHealth = updatedCharacterList[index].currentHealth - number;
+            this.setState({characters: updatedCharacterList});
+    }
+    
     render() {
         const {
             addCharacter,
@@ -37,9 +49,8 @@ class InitiativeTracker extends Component {
             addCharacterModal
         } = this.state
         
-        const removeCharacter = (index) => {
-            const updatedCharacterList = characters;
-            updatedCharacterList.splice(index, 1);
+        const removeCharacter = (character) => {
+            const updatedCharacterList = characters.filter(currentChar => currentChar !== character);
             this.setState({characters: updatedCharacterList});
         }
         
@@ -142,7 +153,10 @@ class InitiativeTracker extends Component {
                             <div className='title-and-options'>
                             <h2>Initiative Order</h2>
                                 <div className='header-buttons'>
-                                    <div className="button" onClick={() => this.setState({addCharacterModal: true})}>
+                                    <div
+                                        className="button"
+                                        onClick={() => this.setState({addCharacterModal: true})}
+                                    >
                                         <span>+ Add</span>
                                     </div>
                                     <div className="button long" onClick={() => {
@@ -156,8 +170,13 @@ class InitiativeTracker extends Component {
                                 </div>
                             </div>
                     }
-                    {characters.map((char, index) => 
-                        <CharacterCard character={char} remove={() => removeCharacter(index)} />
+                    {characters.map((character, index) => 
+                        <CharacterCard
+                            index={index}
+                            characterInfo={character}
+                            remove={() => removeCharacter(character)}
+                            updateCurrentHealth = {this.updateHealth}
+                        />
                     )}
                 </section>
                 <section className='character-info'>
@@ -176,60 +195,61 @@ class InitiativeTracker extends Component {
                                 <input
                                     value = {addCharacter.name}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
                                             name: e.target.value
-                                    }}))
-                                }}/>
+                                        }})
+                                    }}
+                                />
                             </div>
                             <div>
                                 <span>Initiative</span>
                                 <input 
                                     value = {addCharacter.initiative}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
                                             initiative: parseInt(e.target.value, 10) || 0 
-                                    }}))
-                                }}/>
+                                        }})
+                                    }}
+                                />
                             </div>
                             <div>
                                 <span>AC</span>
                                 <input 
                                     value = {addCharacter.ac}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
                                             ac: parseInt(e.target.value, 10) || 0 
-                                    }}))
-                                }}/>
+                                        }})
+                                    }}
+                                />
                             </div>
                             <div>
                                 <span>Max Health</span>
                                 <input 
                                     value = {addCharacter.maxHealth}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
-                                            maxHealth: parseInt(e.target.value, 10) || 0 
-                                    }}))
-                                }}/>
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
+                                            maxHealth: parseInt(e.target.value, 10) || 0,
+                                            currentHealth: parseInt(e.target.value, 10) || 0
+                                        }})
+                                    }}
+                                />
                             </div>
                             <div>
                                 <span>Condition</span>
                                 <input 
                                     value = {addCharacter.conditions}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
                                             conditions: e.target.value
-                                    }}))
-                                }}/>
+                                        }})
+                                    }}
+                                />
                             </div>
                             <div>
                                 <span>Is This a Monster?</span>
@@ -237,12 +257,12 @@ class InitiativeTracker extends Component {
                                     type='checkbox'
                                     checked={addCharacter.monster}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
                                             monster: !addCharacter.monster
-                                    }}))
-                                }}/>
+                                        }})
+                                    }}
+                                />
                             </div>
                             <span>Attacks +</span>
                             <div>
@@ -250,15 +270,15 @@ class InitiativeTracker extends Component {
                                 <input 
                                     value = {addCharacter.attacks.toHit}
                                     onChange={(e) => {
-                                    e.persist();
-                                    this.setState(prevState => ({addCharacter: {
-                                        ...prevState.addCharacter,
+                                        this.setState({addCharacter: {
+                                            ...addCharacter,
                                             attacks: {
                                                 name: '',
                                                 toHit: parseInt(e.target.value, 10) || 0 
                                             }
-                                    }}))
-                                }}/>
+                                        }})
+                                    }}
+                                />
                             </div>
                             <div 
                                 className='button' 
@@ -270,6 +290,7 @@ class InitiativeTracker extends Component {
                                             initiative: 0,
                                             ac: 0,
                                             maxHealth: 0,
+                                            currentHealth: 0,
                                             health: 0,
                                             conditions: '',
                                             monster: false,

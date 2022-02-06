@@ -37,14 +37,7 @@ class CharacterCard extends Component {
                     </div>
                 </div>
                 <div className='character-settings'>
-                    <div className='button' onClick={() => remove()}>
-                        Remove
-                    </div>
-                    <div className='button'>
-                        Edit
-                    </div>
-                </div>
-                <div className='change-health'>
+                    <div className='change-health'>
                     <div
                         className='button heal'
                         onClick={() => {
@@ -72,6 +65,13 @@ class CharacterCard extends Component {
                     >
                         <span>Damage</span>
                     </div>
+                </div>
+                <div className='button' onClick={() => remove()}>
+                    Remove
+                </div>
+                <div className='button'>
+                    Edit
+                </div>
                 </div>
                 <div className='move-initiative'>
                     <div className='button move-up' />

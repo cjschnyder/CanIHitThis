@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
 import CharacterCard from './CharacterCard';
-import './css/InitiativeTracker.css';
+import AddCharacter from './AddCharacter';
+import '../css/InitiativeTracker.css';
 
 
 class InitiativeTracker extends Component {
     constructor(props) {
         super(props);
         this.updateHealth = this.updateHealth.bind(this);
+        this.addCharacterToInit = this.addCharacterToInit.bind(this);
         this.state = {
-            addCharacter: {
-                name: '',
-                initiative: 0,
-                ac: 0,
-                maxHealth: 0,
-                currentHealth: 0,
-                conditions: '',
-                attacks: {
-                    attackName: '',
-                    toHit: 0
-                },
-                monster: false,
-                current: false
-            },
             characters: [],
             currentCharacterIndex: -1,
             combat: false,
             roundNumber: 0,
-            addCharacterModal: false
+            showAddCharacterModal: false
         };
     }
     
@@ -39,6 +27,12 @@ class InitiativeTracker extends Component {
             this.setState({characters: updatedCharacterList});
     }
     
+    addCharacterToInit(character) {
+        const updatedCharacterList = this.state.characters
+        this.setState({characters: updatedCharacterList.concat(character)})
+        this.setState({characters: updatedCharacterList.concat(character)})
+    }
+    
     render() {
         const {
             addCharacter,
@@ -46,8 +40,12 @@ class InitiativeTracker extends Component {
             currentCharacterIndex,
             combat,
             roundNumber,
-            addCharacterModal
+            showAddCharacterModal
         } = this.state
+        
+        const toggleAddCharModal = () => {
+            this.setState({showAddCharacterModal: !showAddCharacterModal});
+        }
         
         const removeCharacter = (character) => {
             const updatedCharacterList = characters.filter(currentChar => currentChar !== character);
@@ -155,7 +153,7 @@ class InitiativeTracker extends Component {
                                 <div className='header-buttons'>
                                     <div
                                         className="button"
-                                        onClick={() => this.setState({addCharacterModal: true})}
+                                        onClick={() => this.setState({showAddCharacterModal: true})}
                                     >
                                         <span>+ Add</span>
                                     </div>
@@ -181,132 +179,11 @@ class InitiativeTracker extends Component {
                 </section>
                 <section className='character-info'>
                 </section>
-                <div className={`add-characters-modal-wrapper ${addCharacterModal ? 'show' : ''}`}>
-                    <div id='add-characters-modal'>
-                        <div className='character-modal-title'>
-                            <h2>Add Characters to Initiative</h2>
-                            <div className="button" onClick={() => this.setState({addCharacterModal: false})}>
-                                <span>X</span>
-                            </div>
-                        </div>
-                        <div className='add-character-info'>
-                            <div>
-                                <span>Name</span>
-                                <input
-                                    value = {addCharacter.name}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            name: e.target.value
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <span>Initiative</span>
-                                <input 
-                                    value = {addCharacter.initiative}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            initiative: parseInt(e.target.value, 10) || 0 
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <span>AC</span>
-                                <input 
-                                    value = {addCharacter.ac}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            ac: parseInt(e.target.value, 10) || 0 
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <span>Max Health</span>
-                                <input 
-                                    value = {addCharacter.maxHealth}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            maxHealth: parseInt(e.target.value, 10) || 0,
-                                            currentHealth: parseInt(e.target.value, 10) || 0
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <span>Condition</span>
-                                <input 
-                                    value = {addCharacter.conditions}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            conditions: e.target.value
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <span>Is This a Monster?</span>
-                                <input 
-                                    type='checkbox'
-                                    checked={addCharacter.monster}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            monster: !addCharacter.monster
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <span>Attacks +</span>
-                            <div>
-                                <span>To Hit</span>
-                                <input 
-                                    value = {addCharacter.attacks.toHit}
-                                    onChange={(e) => {
-                                        this.setState({addCharacter: {
-                                            ...addCharacter,
-                                            attacks: {
-                                                name: '',
-                                                toHit: parseInt(e.target.value, 10) || 0 
-                                            }
-                                        }})
-                                    }}
-                                />
-                            </div>
-                            <div 
-                                className='button' 
-                                onClick={() => {
-                                    this.setState({
-                                        characters: characters.concat(addCharacter),
-                                        addCharacter: {
-                                            name: '',
-                                            initiative: 0,
-                                            ac: 0,
-                                            maxHealth: 0,
-                                            currentHealth: 0,
-                                            health: 0,
-                                            conditions: '',
-                                            monster: false,
-                                            attacks: {
-                                                attackName: '',
-                                                toHit: 0
-                                            }
-                                        }
-                                    })
-                                }}
-                            >
-                                Add Character
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <AddCharacter 
+                    modalOpen={showAddCharacterModal}
+                    closeModal={() => toggleAddCharModal()}
+                    addCharacterToInit={this.addCharacterToInit}
+                />
             </div>
         )
     }

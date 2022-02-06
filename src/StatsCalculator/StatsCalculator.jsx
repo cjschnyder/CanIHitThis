@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TableDisplay from './TableDisplay';
-import {toHitCalculation} from './StatSpells';
-import './css/StatsCalculator.css';
+import {toHitCalculation} from '../resources/StatSpells';
+import '../css/StatsCalculator.css';
 
 class StatsCalculator extends Component {
     constructor(props) {

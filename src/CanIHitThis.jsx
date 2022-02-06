@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import logo from './dTwentyIconWPerc.png';
-import StatsCalculator from './StatsCalculator';
-import InitiativeTracker from './InitiativeTracker';
+import logo from './resources/dTwentyIconWPerc.png';
+import StatsCalculator from './StatsCalculator/StatsCalculator';
+import InitiativeTracker from './InitiativeTracker/InitiativeTracker';
 import './css/CanIHitThis.css';
 
 class CanIHitThis extends Component {

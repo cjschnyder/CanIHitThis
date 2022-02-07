@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {removeCharacter, updateHealth} from '../store/actions';
 
 class CharacterCard extends Component {
     constructor(props) {
@@ -7,9 +9,10 @@ class CharacterCard extends Component {
     render() {
         const {
             index,
-            remove,
+            removeCharacter,
+            edit,
             characterInfo,
-            updateCurrentHealth
+            updateHealth
         } = this.props;
 
         return (
@@ -41,7 +44,7 @@ class CharacterCard extends Component {
                     <div
                         className='button heal'
                         onClick={() => {
-                        updateCurrentHealth(
+                        updateHealth(
                             index, 
                             parseInt(document.querySelector('#health-input').value, 10) || 0,
                             true
@@ -55,21 +58,21 @@ class CharacterCard extends Component {
                     <div
                         className='button harm'
                         onClick={() => {
-                        updateCurrentHealth(
-                            index, 
-                            parseInt(document.querySelector('#health-input').value, 10) || 0,
-                            false
-                        );
-                        document.querySelector('#health-input').value = null;
+                            updateHealth(
+                                index, 
+                                parseInt(document.querySelector('#health-input').value, 10) || 0,
+                                false
+                            );
+                            document.querySelector('#health-input').value = null;
                         }}
                     >
                         <span>Damage</span>
                     </div>
                 </div>
-                <div className='button' onClick={() => remove()}>
+                <div className='button' onClick={() => removeCharacter(characterInfo)}>
                     Remove
                 </div>
-                <div className='button'>
+                <div className='button' onClick={() => edit()}>
                     Edit
                 </div>
                 </div>
@@ -82,4 +85,7 @@ class CharacterCard extends Component {
     }
 }
 
-export default CharacterCard;
+export default connect(null, {
+  removeCharacter: removeCharacter,
+  updateHealth: updateHealth
+})(CharacterCard);

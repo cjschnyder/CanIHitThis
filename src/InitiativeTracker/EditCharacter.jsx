@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {addCharacter} from '../store/actions'
 
-class AddCharacter extends Component {
+class EditCharacter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            character: {
-                name: '',
-                initiative: 0,
-                ac: 0,
-                maxHealth: 0,
-                currentHealth: 0,
-                conditions: '',
-                attacks: {
-                    attackName: '',
-                    toHit: 0
-                },
-                monster: false,
-                current: false
-            }
+            character: this.props.character
         }
     }
     
@@ -27,16 +12,18 @@ class AddCharacter extends Component {
         const {
             modalOpen,
             closeModal,
-            addCharacter
+            index,
+            saveEdits
         } = this.props
         const {
             character
-        }= this.state
+        } = this.state
+        
         return(
             <div className={`add-characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
                 <div id='add-characters-modal'>
                     <div className='character-modal-title'>
-                        <h2>Add Characters to Initiative</h2>
+                        <h2>{`Edit ${character.name}`}</h2>
                         <div className="button" onClick={() => closeModal()}>
                             <span>X</span>
                         </div>
@@ -134,25 +121,9 @@ class AddCharacter extends Component {
                         </div>
                         <div 
                             className='button' 
-                            onClick={() => {
-                                addCharacter(character);
-                                this.setState({character: {
-                                    name: '',
-                                    initiative: 0,
-                                    ac: 0,
-                                    maxHealth: 0,
-                                    currentHealth: 0,
-                                    conditions: '',
-                                    attacks: {
-                                        attackName: '',
-                                        toHit: 0
-                                    },
-                                    monster: false,
-                                    current: false
-                                }})
-                            }}
+                            onClick={() => {saveEdits(character, index)}}
                         >
-                            Add Character
+                            Apply
                         </div>
                     </div>
                 </div>
@@ -161,6 +132,4 @@ class AddCharacter extends Component {
     }
 }
 
-export default connect(null, {
-  addCharacter: addCharacter,
-})(AddCharacter);
+export default EditCharacter;

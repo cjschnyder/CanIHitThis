@@ -1,11 +1,11 @@
 #hitThis .initiative-list {
-  z-index: 1;
   background-color: #242528;
   overflow: scroll;
   height: calc(100vh - 90px);
   flex-flow: row wrap;
   order: 1;
-  flex: 2; }
+  flex: 2;
+  min-width: 510px; }
   #hitThis .initiative-list .title-and-options {
     display: flex;
     flex-direction: row;
@@ -63,7 +63,6 @@
         margin-right: 5px; }
 
 #hitThis .character-info {
-  z-index: 1;
   background-color: #fafafa;
   color: #242528;
   height: calc(100vh - 90px);

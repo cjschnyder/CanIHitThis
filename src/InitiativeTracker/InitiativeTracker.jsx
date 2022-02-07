@@ -1,55 +1,48 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CharacterCard from './CharacterCard';
 import AddCharacter from './AddCharacter';
+import EditCharacter from './EditCharacter';
 import '../css/InitiativeTracker.css';
 
 
 class InitiativeTracker extends Component {
     constructor(props) {
         super(props);
-        this.updateHealth = this.updateHealth.bind(this);
-        this.addCharacterToInit = this.addCharacterToInit.bind(this);
+        this.editCharacterInfo = this.editCharacterInfo.bind(this);
         this.state = {
-            characters: [],
             currentCharacterIndex: -1,
             combat: false,
             roundNumber: 0,
-            showAddCharacterModal: false
+            showAddCharacterModal: false,
+            showEditCharacterModal: false
         };
     }
     
-    updateHealth(index, number, addHPBool) {
+    editCharacterInfo(character, index) {
         const updatedCharacterList = this.state.characters;
-            addHPBool ?
-                updatedCharacterList[index].currentHealth = updatedCharacterList[index].currentHealth + number
-            :
-                updatedCharacterList[index].currentHealth = updatedCharacterList[index].currentHealth - number;
-            this.setState({characters: updatedCharacterList});
-    }
-    
-    addCharacterToInit(character) {
-        const updatedCharacterList = this.state.characters
-        this.setState({characters: updatedCharacterList.concat(character)})
-        this.setState({characters: updatedCharacterList.concat(character)})
+        updatedCharacterList.splice(index, 1, character);
+        this.setState({characters: updatedCharacterList})
     }
     
     render() {
         const {
-            addCharacter,
-            characters,
+            characters
+        } = this.props
+        const {
             currentCharacterIndex,
             combat,
             roundNumber,
-            showAddCharacterModal
+            showAddCharacterModal,
+            showEditCharacterModal
         } = this.state
         
         const toggleAddCharModal = () => {
             this.setState({showAddCharacterModal: !showAddCharacterModal});
         }
         
-        const removeCharacter = (character) => {
-            const updatedCharacterList = characters.filter(currentChar => currentChar !== character);
-            this.setState({characters: updatedCharacterList});
+        const toggleEditCharModal = () => {
+            this.setState({showEditCharacterModal: !showEditCharacterModal});
         }
         
         const sortCharacters = () => {
@@ -169,12 +162,20 @@ class InitiativeTracker extends Component {
                             </div>
                     }
                     {characters.map((character, index) => 
+                        <div>
                         <CharacterCard
                             index={index}
                             characterInfo={character}
-                            remove={() => removeCharacter(character)}
-                            updateCurrentHealth = {this.updateHealth}
+                            edit={() => toggleEditCharModal()}
                         />
+                        <EditCharacter
+                            modalOpen={showEditCharacterModal}
+                            closeModal={() => toggleEditCharModal()}
+                            index={index}
+                            character={character}                
+                            saveEdits={this.editCharacterInfo}
+                        />
+                        </div>
                     )}
                 </section>
                 <section className='character-info'>
@@ -182,11 +183,16 @@ class InitiativeTracker extends Component {
                 <AddCharacter 
                     modalOpen={showAddCharacterModal}
                     closeModal={() => toggleAddCharModal()}
-                    addCharacterToInit={this.addCharacterToInit}
                 />
             </div>
         )
     }
 }
 
-export default InitiativeTracker
+const mapStateToProps = (state) => {
+  return {
+    characters: state.characters
+  };
+};
+
+export default connect(mapStateToProps)(InitiativeTracker);

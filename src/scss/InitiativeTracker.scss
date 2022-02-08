@@ -1,7 +1,7 @@
 #hitThis{
     .initiative-list {
         background-color: #242528;
-        overflow: scroll;
+        overflow-y: scroll;
         height: calc(100vh - 90px);
         flex-flow: row wrap;
         order: 1;
@@ -68,7 +68,7 @@
             .character-stats {
                 color: #242528;
                 font-weight: bold;
-                padding: 10px 8px;
+                padding: 0 8px;
                 display: flex;
                 flex-direction: column;
                 text-align: left;
@@ -179,18 +179,64 @@
     
     .character-settings {
         display: flex;
-        flex-direction: column;
-        margin-top: 8px;
+        flex-direction: row;
         margin-left: 5px;
         margin-right: auto;
         
         .button {
             width: 60px;
         }
-        
-        .change-health{
-            width: 60px;
             
+        #health-input {
+            display:inline-block;
+            width: 65px;
+        }
+        
+        > div {
+            margin-right: 10px;
+        }
+    }
+    
+    .change-health, .remove-edit {
+        :first-child {
+            margin-top: 2px;
+        }
+    }
+    
+    .move-initiative {
+        height: 100%;
+        
+        .button {
+            padding: 0;
+            margin: 0;
+            width: 25px;
+            height: 46px;
+        }
+        
+        .move-up {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 0;
+            
+            span {
+                margin-top: 12px;
+                margin-right: 1.5px;
+                transform: rotate(-90deg);
+            }
+        }
+        
+        .move-down {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 5px;
+            
+            span {
+                margin-top: 12px;
+                margin-left: 1.5px;
+                transform: rotate(90deg);
+            }
         }
     }
 }

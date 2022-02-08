@@ -2,27 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CharacterCard from './CharacterCard';
 import AddCharacter from './AddCharacter';
-import EditCharacter from './EditCharacter';
 import '../css/InitiativeTracker.css';
 
 
 class InitiativeTracker extends Component {
     constructor(props) {
         super(props);
-        this.editCharacterInfo = this.editCharacterInfo.bind(this);
         this.state = {
             currentCharacterIndex: -1,
             combat: false,
             roundNumber: 0,
             showAddCharacterModal: false,
-            showEditCharacterModal: false
         };
-    }
-    
-    editCharacterInfo(character, index) {
-        const updatedCharacterList = this.state.characters;
-        updatedCharacterList.splice(index, 1, character);
-        this.setState({characters: updatedCharacterList})
     }
     
     render() {
@@ -34,15 +25,10 @@ class InitiativeTracker extends Component {
             combat,
             roundNumber,
             showAddCharacterModal,
-            showEditCharacterModal
         } = this.state
         
         const toggleAddCharModal = () => {
             this.setState({showAddCharacterModal: !showAddCharacterModal});
-        }
-        
-        const toggleEditCharModal = () => {
-            this.setState({showEditCharacterModal: !showEditCharacterModal});
         }
         
         const sortCharacters = () => {
@@ -162,20 +148,11 @@ class InitiativeTracker extends Component {
                             </div>
                     }
                     {characters.map((character, index) => 
-                        <div>
                         <CharacterCard
+                            key={`${character.name}+${character.currentHealth}+${index}`}
                             index={index}
                             characterInfo={character}
-                            edit={() => toggleEditCharModal()}
                         />
-                        <EditCharacter
-                            modalOpen={showEditCharacterModal}
-                            closeModal={() => toggleEditCharModal()}
-                            index={index}
-                            character={character}                
-                            saveEdits={this.editCharacterInfo}
-                        />
-                        </div>
                     )}
                 </section>
                 <section className='character-info'>

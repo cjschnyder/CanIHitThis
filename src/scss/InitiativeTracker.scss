@@ -5,7 +5,7 @@
         height: calc(100vh - 90px);
         flex-flow: row wrap;
         order: 1;
-        flex: 2;
+        flex: 1;
         min-width: 510px;
         
         .title-and-options {
@@ -83,7 +83,6 @@
                 
                 .health-and-ac, .conditions {
                     margin-top: 5px;
-                    
                     span {
                         margin-right: 20px;
                     }
@@ -92,6 +91,10 @@
                 .conditions {
                     span {
                         margin-right: 5px;
+                    }
+                    
+                    &.hide {
+                        display: none;
                     }
                 }
                 
@@ -110,7 +113,7 @@
     
     
     .add-characters-modal-wrapper {
-        #add-characters-modal {
+        .add-characters-modal {
             display: none;
             background-color: #242528;
             margin-left: auto;
@@ -124,6 +127,7 @@
             border-radius: 10px;
             transform: translateX(-50%);
             border: 2px solid #fafafa;
+            overflow-y: scroll;
         }
         
         &.show {
@@ -134,9 +138,28 @@
             height: 100vh;
             background-color: rgba(180, 180, 180, 0.6);
             
-            #add-characters-modal {
+            .add-characters-modal {
                 display: block;
             }
+        }
+        
+        .load-initative-list {
+            .load-item {
+                margin-bottom: 25px;
+                h3 {
+                    display: inline;
+                }
+                .button {
+                    display: inline;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    
+    .save-initiative-modal {
+        .add-characters-modal {
+            height: 200px;
         }
     }
     
@@ -180,8 +203,8 @@
     .character-settings {
         display: flex;
         flex-direction: row;
-        margin-left: 5px;
-        margin-right: auto;
+        margin-left: auto;
+        margin-right: 5px;
         
         .button {
             width: 60px;

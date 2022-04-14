@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {sortCharacters, loadCharacters} from '../store/actions';
 import CharacterCard from './CharacterCard';
 import AddCharacter from './AddCharacter';
 import '../css/InitiativeTracker.css';
@@ -13,98 +14,67 @@ class InitiativeTracker extends Component {
             combat: false,
             roundNumber: 0,
             showAddCharacterModal: false,
+            saveInitiativeModal: false,
+            initiativeSaveName: '',
+            loadInitiativeModal: false
         };
     }
     
     render() {
         const {
-            characters
+            characters,
+            sortCharacters,
+            loadCharacters
         } = this.props
         const {
             currentCharacterIndex,
             combat,
             roundNumber,
             showAddCharacterModal,
+            saveInitiativeModal,
+            initiativeSaveName,
+            loadInitiativeModal
         } = this.state
         
         const toggleAddCharModal = () => {
             this.setState({showAddCharacterModal: !showAddCharacterModal});
         }
         
-        const sortCharacters = () => {
-            const sortedCharacterList = characters;
-            sortedCharacterList.sort((char1, char2) => char2.initiative - char1.initiative);
-            this.setState({characters: sortedCharacterList});
-        }
-        
         const initiateCombat = () => {
-            const trackedCharacterList = characters;
-            trackedCharacterList[0].current = true;
             this.setState({
                 combat: true,
                 roundNumber: 1,
                 currentCharacterIndex: 0,
-                characters: trackedCharacterList
             });
         }
         
         const stopCombat = () => {
-            const trackedCharacterList = characters;
-            trackedCharacterList[currentCharacterIndex].current = false;
             this.setState({
                 combat: false,
                 roundNumber: 0,
                 currentCharacterIndex: -1,
-                characters: trackedCharacterList
             });
         }
         
         const nextInCombat = () => {
-            const trackedCharacterList = characters;
             const incrementedCharacterIndex = currentCharacterIndex + 1;
             const incrementedRound = roundNumber + 1;
-            trackedCharacterList[incrementedCharacterIndex] ?
-                (
-                    trackedCharacterList[currentCharacterIndex].current = false,
-                    trackedCharacterList[incrementedCharacterIndex].current = true
-                )
-            :   
-                (
-                    trackedCharacterList[currentCharacterIndex].current = false,
-                    trackedCharacterList[0].current = true
-                )
             
             this.setState({
-                characters: trackedCharacterList,
-                currentCharacterIndex: trackedCharacterList[0].current ? 0 : incrementedCharacterIndex,
-                roundNumber: trackedCharacterList[0].current ? incrementedRound : roundNumber
+                currentCharacterIndex: characters[incrementedCharacterIndex] ? incrementedCharacterIndex : 0,
+                roundNumber: characters[incrementedCharacterIndex] ? roundNumber : incrementedRound
             })
                 
         }
         
         const prevInCombat = () => {
-            const trackedCharacterList = characters;
             const decrementedCharacterIndex = currentCharacterIndex - 1;
             const decrementedRound = roundNumber - 1;
             
-            if (roundNumber > 1 || currentCharacterIndex > 0) {
-                trackedCharacterList[decrementedCharacterIndex] ?
-                    (
-                        trackedCharacterList[currentCharacterIndex].current = false,
-                        trackedCharacterList[decrementedCharacterIndex].current = true
-                    )
-                :   
-                    (
-                        trackedCharacterList[currentCharacterIndex].current = false,
-                        trackedCharacterList[trackedCharacterList.length - 1].current = true
-                    )
-
-                this.setState({
-                    characters: trackedCharacterList,
-                    currentCharacterIndex: trackedCharacterList[trackedCharacterList.length - 1].current ? trackedCharacterList.length - 1 : decrementedCharacterIndex,
-                    roundNumber: trackedCharacterList[trackedCharacterList.length - 1].current && roundNumber > 1 ? decrementedRound : roundNumber
-                })
-            }
+            (roundNumber > 1 || currentCharacterIndex !== 0) && this.setState({
+                currentCharacterIndex: characters[decrementedCharacterIndex] ? decrementedCharacterIndex : characters.length - 1,
+                roundNumber: characters[decrementedCharacterIndex] ? roundNumber : decrementedRound
+            })
         }
         
         return(
@@ -151,16 +121,101 @@ class InitiativeTracker extends Component {
                         <CharacterCard
                             key={`${character.name}+${character.currentHealth}+${index}`}
                             index={index}
+                            currentTurn={index === currentCharacterIndex}
                             characterInfo={character}
                         />
                     )}
+                    <section className='saveLoadButtons'>
+                        <div
+                            className="button"
+                            onClick={() => this.setState({saveInitiativeModal: true})}
+                        >
+                            Save Initiative
+                        </div>
+                        <div
+                            className="button"
+                            onClick={() => {this.setState({loadInitiativeModal: true})}}
+                        >
+                            Load Initiative
+                        </div>
+                    </section>
                 </section>
-                <section className='character-info'>
-                </section>
+                <section className='character-info' />
                 <AddCharacter 
                     modalOpen={showAddCharacterModal}
                     closeModal={() => toggleAddCharModal()}
                 />
+                <div className={`save-initiative-modal add-characters-modal-wrapper ${saveInitiativeModal ? 'show' : ''}`}>
+                    <div className='add-characters-modal'>
+                        <div className='character-modal-title'>
+                            <h2>Save Initiative List As...</h2>
+                            <div className="button" onClick={() => this.setState({saveInitiativeModal: false})}>
+                                <span>X</span>
+                            </div>
+                        </div>
+                        <div className='add-character-info'>
+                            <div>
+                                <span>Name</span>
+                                <input
+                                    value = {initiativeSaveName}
+                                    onChange={(e) => {
+                                        this.setState({initiativeSaveName: e.target.value})
+                                    }}
+                                />
+                            </div>
+                            <div 
+                            className='button' 
+                            onClick={() => {
+                                localStorage.setItem(initiativeSaveName, JSON.stringify(characters));
+                                this.setState({
+                                    saveInitiativeModal: false,
+                                    initiativeSaveName: ''
+                                });
+                            }}
+                        >
+                            Save
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={`add-characters-modal-wrapper ${loadInitiativeModal ? 'show' : ''}`}>
+                    <div className='add-characters-modal'>
+                        <div className='character-modal-title'>
+                            <h2>Saved Initiatives</h2>
+                            <div className="button" onClick={() => this.setState({loadInitiativeModal: false})}>
+                                <span>X</span>
+                            </div>
+                        </div>
+                        <div className='load-initative-list'>
+                            {
+                                
+                                Object.keys(JSON.parse(JSON.stringify(localStorage))).map(item =>
+                                    <div className='load-item'>
+                                        <h3>{item}:</h3>
+                                        <div 
+                                            className='button' 
+                                            onClick={() => {
+                                                loadCharacters(JSON.parse(localStorage.getItem(item)));
+                                                this.setState({loadInitiativeModal: false});
+                                            }}
+                                        >
+                                            Load
+                                        </div>
+                                        <div 
+                                            className='button' 
+                                            onClick={() => {
+                                                localStorage.removeItem(item);
+                                                this.setState({loadInitiativeModal: false});
+                                            }}
+                                        >
+                                            Delete
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -172,4 +227,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(InitiativeTracker);
+export default connect(mapStateToProps, {
+    sortCharacters: sortCharacters,
+    loadCharacters: loadCharacters
+})(InitiativeTracker);

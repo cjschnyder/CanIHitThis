@@ -12,13 +12,7 @@ class AddCharacter extends Component {
                 ac: 0,
                 maxHealth: 0,
                 currentHealth: 0,
-                conditions: '',
-                attacks: {
-                    attackName: '',
-                    toHit: 0
-                },
-                monster: false,
-                current: false
+                conditions: ''
             }
         }
     }
@@ -34,7 +28,7 @@ class AddCharacter extends Component {
         }= this.state
         return(
             <div className={`add-characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
-                <div id='add-characters-modal'>
+                <div className='add-characters-modal'>
                     <div className='character-modal-title'>
                         <h2>Add Characters to Initiative</h2>
                         <div className="button" onClick={() => closeModal()}>
@@ -92,42 +86,13 @@ class AddCharacter extends Component {
                             />
                         </div>
                         <div>
-                            <span>Condition</span>
+                            <span>Conditions</span>
                             <input 
                                 value = {character.conditions}
                                 onChange={(e) => {
                                     this.setState({character: {
                                         ...character,
                                         conditions: e.target.value
-                                    }})
-                                }}
-                            />
-                        </div>
-                        <div>
-                            <span>Is This a Monster?</span>
-                            <input 
-                                type='checkbox'
-                                checked={character.monster}
-                                onChange={(e) => {
-                                    this.setState({character: {
-                                        ...character,
-                                        monster: !character.monster
-                                    }})
-                                }}
-                            />
-                        </div>
-                        <span>Attacks +</span>
-                        <div>
-                            <span>To Hit</span>
-                            <input 
-                                value = {character.attacks.toHit}
-                                onChange={(e) => {
-                                    this.setState({character: {
-                                        ...character,
-                                        attacks: {
-                                            name: '',
-                                            toHit: parseInt(e.target.value, 10) || 0 
-                                        }
                                     }})
                                 }}
                             />
@@ -142,13 +107,7 @@ class AddCharacter extends Component {
                                     ac: 0,
                                     maxHealth: 0,
                                     currentHealth: 0,
-                                    conditions: '',
-                                    attacks: {
-                                        attackName: '',
-                                        toHit: 0
-                                    },
-                                    monster: false,
-                                    current: false
+                                    conditions: ''
                                 }})
                             }}
                         >
@@ -162,5 +121,5 @@ class AddCharacter extends Component {
 }
 
 export default connect(null, {
-  addCharacter: addCharacter,
+  addCharacter: addCharacter
 })(AddCharacter);

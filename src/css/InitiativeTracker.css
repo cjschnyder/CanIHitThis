@@ -4,7 +4,7 @@
   height: calc(100vh - 90px);
   flex-flow: row wrap;
   order: 1;
-  flex: 2;
+  flex: 1;
   min-width: 510px; }
   #hitThis .initiative-list .title-and-options {
     display: flex;
@@ -61,6 +61,8 @@
           margin-right: 20px; }
       #hitThis .initiative-list .character .character-stats .conditions span {
         margin-right: 5px; }
+      #hitThis .initiative-list .character .character-stats .conditions.hide {
+        display: none; }
 
 #hitThis .character-info {
   background-color: #fafafa;
@@ -71,7 +73,7 @@
   order: 2;
   flex: 3; }
 
-#hitThis .add-characters-modal-wrapper #add-characters-modal {
+#hitThis .add-characters-modal-wrapper .add-characters-modal {
   display: none;
   background-color: #242528;
   margin-left: auto;
@@ -84,7 +86,8 @@
   height: 600px;
   border-radius: 10px;
   transform: translateX(-50%);
-  border: 2px solid #fafafa; }
+  border: 2px solid #fafafa;
+  overflow-y: scroll; }
 
 #hitThis .add-characters-modal-wrapper.show {
   position: absolute;
@@ -93,8 +96,19 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(180, 180, 180, 0.6); }
-  #hitThis .add-characters-modal-wrapper.show #add-characters-modal {
+  #hitThis .add-characters-modal-wrapper.show .add-characters-modal {
     display: block; }
+
+#hitThis .add-characters-modal-wrapper .load-initative-list .load-item {
+  margin-bottom: 25px; }
+  #hitThis .add-characters-modal-wrapper .load-initative-list .load-item h3 {
+    display: inline; }
+  #hitThis .add-characters-modal-wrapper .load-initative-list .load-item .button {
+    display: inline;
+    margin-left: 5px; }
+
+#hitThis .save-initiative-modal .add-characters-modal {
+  height: 200px; }
 
 #hitThis .add-character-info {
   display: flex;
@@ -125,8 +139,8 @@
 #hitThis .character-settings {
   display: flex;
   flex-direction: row;
-  margin-left: 5px;
-  margin-right: auto; }
+  margin-left: auto;
+  margin-right: 5px; }
   #hitThis .character-settings .button {
     width: 60px; }
   #hitThis .character-settings #health-input {

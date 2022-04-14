@@ -7,7 +7,7 @@ class EditCharacter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentCharacterInfo: {...this.props.characters[this.props.index]}
+            currentCharacterInfo: {...this.props.character}
         }
     }
     
@@ -16,6 +16,7 @@ class EditCharacter extends Component {
             modalOpen,
             closeModal,
             index,
+            character,
             editCharacter
         } = this.props
         const {
@@ -24,9 +25,9 @@ class EditCharacter extends Component {
         
         return(
             <div className={`add-characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
-                <div id='add-characters-modal'>
+                <div className='add-characters-modal'>
                     <div className='character-modal-title'>
-                        <h2>{`Edit ${currentCharacterInfo.name}`}</h2>
+                        <h2>{`Edit ${character.name}`}</h2>
                         <div className="button" onClick={() => closeModal()}>
                             <span>X</span>
                         </div>
@@ -82,42 +83,13 @@ class EditCharacter extends Component {
                             />
                         </div>
                         <div>
-                            <span>Condition</span>
+                            <span>Conditions</span>
                             <input 
                                 value = {currentCharacterInfo.conditions}
                                 onChange={(e) => {
                                     this.setState({currentCharacterInfo: {
                                         ...currentCharacterInfo,
                                         conditions: e.target.value
-                                    }})
-                                }}
-                            />
-                        </div>
-                        <div>
-                            <span>Is This a Monster?</span>
-                            <input 
-                                type='checkbox'
-                                checked={currentCharacterInfo.monster}
-                                onChange={(e) => {
-                                    this.setState({currentCharacterInfo: {
-                                        ...currentCharacterInfo,
-                                        monster: !currentCharacterInfo.monster
-                                    }})
-                                }}
-                            />
-                        </div>
-                        <span>Attacks +</span>
-                        <div>
-                            <span>To Hit</span>
-                            <input 
-                                value = {currentCharacterInfo.attacks.toHit}
-                                onChange={(e) => {
-                                    this.setState({currentCharacterInfo: {
-                                        ...currentCharacterInfo,
-                                        attacks: {
-                                            name: '',
-                                            toHit: parseInt(e.target.value, 10) || 0 
-                                        }
                                     }})
                                 }}
                             />
@@ -135,12 +107,6 @@ class EditCharacter extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    characters: state.characters
-  };
-};
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   editCharacter: editCharacter,
 })(EditCharacter);

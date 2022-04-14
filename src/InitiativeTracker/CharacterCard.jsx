@@ -20,6 +20,7 @@ class CharacterCard extends Component {
             index,
             removeCharacter,
             characterInfo,
+            currentTurn,
             updateHealth,
             moveCharacterDown,
             moveCharacterUp
@@ -33,7 +34,7 @@ class CharacterCard extends Component {
         }
 
         return (
-            <div className={`character ${characterInfo.current ? 'current' : ''}`} >
+            <div className={`character ${currentTurn ? 'current' : ''}`} >
                 <div className='initiative'>
                     <span>Init.</span>
                     <h2>{characterInfo.initiative}</h2>
@@ -42,18 +43,34 @@ class CharacterCard extends Component {
                     <span className='character-name'>{characterInfo.name}</span>
                     <div className='health-and-ac'>
                         <span>AC: {characterInfo.ac}</span>
-                        <span>Health: 
-                             {characterInfo.currentHealth} 
-                            /{characterInfo.maxHealth}
-                        </span>
+                        {
+                            characterInfo.currentHealth === 0 ?
+                                <div>
+                                    <span>
+                                        Successes
+                                        <input type='checkbox'/>
+                                        <input type='checkbox'/>
+                                        <input type='checkbox'/>
+                                    </span>
+                                    <span>
+                                        Failures
+                                        <input type='checkbox'/>
+                                        <input type='checkbox'/>
+                                        <input type='checkbox'/>
+                                    </span>
+                                </div>
+                            :
+                                <span>Health: 
+                                     {characterInfo.currentHealth} 
+                                    /{characterInfo.maxHealth}
+                                </span>
+                        }
                     </div>
-                    <div className='conditions'>
+                    <div className={`conditions ${characterInfo.currentHealth === 0 ? 'hide' : ''}`}>
                         <span>Conditions:</span>
-                        <input
-                            type="text"
-                            value={characterInfo.conditions} 
-                            onChange={(e) => this.setState({conditions: e.target.value})}
-                        />
+                        <span>
+                            {characterInfo.conditions}
+                        </span>
                     </div>
                 </div>
                 <div className='character-settings'>

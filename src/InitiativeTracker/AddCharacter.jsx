@@ -113,6 +113,14 @@ class AddCharacter extends Component {
                         >
                             Add Character
                         </div>
+                        <div 
+                            className='button' 
+                            onClick={() => {
+                                addCharacter(character);
+                            }}
+                        >
+                            Add Character & Keep Values
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {editCharacter} from '../store/actions'
+import {editCharacter, addCharacter} from '../store/actions'
 
 
 class EditCharacter extends Component {
@@ -17,7 +17,8 @@ class EditCharacter extends Component {
             closeModal,
             index,
             character,
-            editCharacter
+            editCharacter,
+            addCharacter
         } = this.props
         const {
             currentCharacterInfo
@@ -96,9 +97,18 @@ class EditCharacter extends Component {
                         </div>
                         <div 
                             className='button' 
-                            onClick={() => {editCharacter(currentCharacterInfo, index)}}
+                            onClick={() => {
+                                editCharacter(currentCharacterInfo, index);
+                                closeModal();
+                            }}
                         >
                             Apply
+                        </div>
+                        <div 
+                            className='button' 
+                            onClick={() => {addCharacter(currentCharacterInfo)}}
+                        >
+                            Copy
                         </div>
                     </div>
                 </div>
@@ -108,5 +118,6 @@ class EditCharacter extends Component {
 }
 
 export default connect(null, {
-  editCharacter: editCharacter,
+    editCharacter: editCharacter,
+    addCharacter: addCharacter
 })(EditCharacter);

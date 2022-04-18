@@ -8,7 +8,7 @@
           order: 1;
           flex: 1;
           h2{
-            margin: 10px 0px;
+            margin: 20px 0px 10px 0px;
           }
           .inputs{
             padding: 5px;
@@ -40,6 +40,16 @@
               flex: 1;
               margin-right: 10px;
             }
+          }
+          .adv-disadv-buttons {
+              display: flex;
+              flex-flow: row;
+              
+              .button {
+                  &.active {
+                      box-shadow: 0px 0px 10px 6px #97fb98;
+                  }
+              }
           }
           .dice-inputs{
             display:flex;

@@ -67,3 +67,55 @@ export const toHitCalculation = (acRange, numberOfAttacks, toHitMod) => {
     
     return percents;
 };
+
+export const toHitCalculationAdv = (acRange, numberOfAttacks, toHitMod) => {
+    const advCal = [];
+    const percents = [];
+    for (let n=0; n < oneHitCalc(acRange, toHitMod).length; n++) {
+        const hit = oneHitCalc(acRange, toHitMod)[n];
+        const miss = 1 - hit;
+        const allHit = (Math.pow(hit, 2)) * 100;
+
+        const singleRowPercents = exactHitChance(hit, miss, 2);
+        advCal.push(hitChanceOrGreater(singleRowPercents, allHit, 2)[0]/100);
+        
+    }
+    
+    for (let n=0; n < advCal.length; n++) {
+        const hit = advCal[n];
+        const miss = 1 - hit;
+        const allHit = (Math.pow(hit, numberOfAttacks)) * 100;
+
+        const singleRowPercents = exactHitChance(hit, miss, numberOfAttacks);
+        percents.push(hitChanceOrGreater(singleRowPercents, allHit, numberOfAttacks));
+        
+    }
+    
+    return percents;
+};
+
+export const toHitCalculationDisadv = (acRange, numberOfAttacks, toHitMod) => {
+    const advCal = [];
+    const percents = [];
+    for (let n=0; n < oneHitCalc(acRange, toHitMod).length; n++) {
+        const hit = oneHitCalc(acRange, toHitMod)[n];
+        const miss = 1 - hit;
+        const allHit = (Math.pow(hit, 2)) * 100;
+
+        const singleRowPercents = exactHitChance(hit, miss, 2);
+        advCal.push(hitChanceOrGreater(singleRowPercents, allHit, 2)[1]/100);
+        
+    }
+    
+    for (let n=0; n < advCal.length; n++) {
+        const hit = advCal[n];
+        const miss = 1 - hit;
+        const allHit = (Math.pow(hit, numberOfAttacks)) * 100;
+
+        const singleRowPercents = exactHitChance(hit, miss, numberOfAttacks);
+        percents.push(hitChanceOrGreater(singleRowPercents, allHit, numberOfAttacks));
+        
+    }
+    
+    return percents;
+};

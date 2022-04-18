@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TableDisplay from './TableDisplay';
-import {toHitCalculation} from '../resources/StatSpells';
+import {toHitCalculation, toHitCalculationAdv, toHitCalculationDisadv} from '../resources/StatSpells';
 import '../css/StatsCalculator.css';
 
 class StatsCalculator extends Component {
@@ -14,7 +14,9 @@ class StatsCalculator extends Component {
             miscDamage: 0,
             addScoreToDamage: true,
             acRange: [6,25],
-            dice: [[0, 2.5]]
+            dice: [[0, 2.5]],
+            adv: false,
+            disadv: false
         };
     }
 
@@ -27,12 +29,14 @@ class StatsCalculator extends Component {
             miscDamage,
             addScoreToDamage,
             acRange,
-            dice
+            dice,
+            adv,
+            disadv
         } = this.state;
 
         const toHitMod = (parseInt(proficiency, 10) || 2) + (parseInt(abilityMod, 10) || 0) + (parseInt(miscToHit, 10) || 0);
         
-        const minDam = () =>{
+        const minDam = () => {
             let total = 0;
             const rDam = parseInt(miscDamage, 10) || 0,
                   mod = parseInt(abilityMod, 10) || 0;
@@ -43,7 +47,7 @@ class StatsCalculator extends Component {
             return total;
         }
         
-        const avgDam = () =>{
+        const avgDam = () => {
             let total = 0;
             const rDam = parseInt(miscDamage, 10) || 0,
                   mod = parseInt(abilityMod, 10) || 0;
@@ -56,7 +60,7 @@ class StatsCalculator extends Component {
             return Math.floor(total);
         }
         
-        const maxDam = () =>{
+        const maxDam = () => {
             let total = 0;
             const rDam = parseInt(miscDamage, 10) || 0,
                   mod = parseInt(abilityMod, 10) || 0;
@@ -67,6 +71,20 @@ class StatsCalculator extends Component {
             })
             addScoreToDamage ? total = total+mod+rDam : total=total+rDam;
             return total;
+        }
+        
+        const toggleAdv = () => {
+            this.setState({
+                adv: !adv,
+                disadv: false
+            });
+        }
+        
+        const toggleDisadv = () => {
+            this.setState({
+                adv: false,
+                disadv: !disadv
+            });
         }
 
         return (
@@ -120,6 +138,20 @@ class StatsCalculator extends Component {
                                     this.setState({acRange: [acRange[0], e.target.value]})
                             }}
                         />
+                    </div>
+                    <div className='adv-disadv-buttons'>
+                        <div
+                            className={`button ${adv ? 'active' : ''}`}
+                            onClick={() => toggleAdv()}
+                        >
+                            Advantage
+                        </div>
+                        <div
+                           className={`button ${disadv ? 'active' : ''}`}
+                            onClick={() => toggleDisadv()}
+                        >
+                            Disadvantage
+                        </div>
                     </div>
                     <h2>Damage Dice</h2>
                     <input 
@@ -204,7 +236,13 @@ class StatsCalculator extends Component {
                     <TableDisplay 
                         attacks={attacks} 
                         acStart={parseInt(acRange[0], 10) || 0} 
-                        hitChances={toHitCalculation(acRange, attacks, toHitMod)}
+                        hitChances={
+                            adv ? 
+                                toHitCalculationAdv(acRange, attacks, toHitMod) :
+                                disadv ?
+                                    toHitCalculationDisadv(acRange, attacks, toHitMod) :
+                                    toHitCalculation(acRange, attacks, toHitMod)
+                        }
                     />
                 </div>
             </div>

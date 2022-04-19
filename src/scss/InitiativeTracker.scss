@@ -112,8 +112,8 @@
     }
     
     
-    .add-characters-modal-wrapper {
-        .add-characters-modal {
+    .characters-modal-wrapper {
+        .characters-modal {
             display: none;
             background-color: #242528;
             margin-left: auto;
@@ -138,7 +138,7 @@
             height: 100vh;
             background-color: rgba(180, 180, 180, 0.6);
             
-            .add-characters-modal {
+            .characters-modal {
                 display: block;
             }
         }
@@ -158,22 +158,34 @@
     }
     
     .save-initiative-modal {
-        .add-characters-modal {
+        .characters-modal {
             height: 200px;
         }
     }
     
-    .add-character-info {
+    .modal-character-info {
         display: flex;
         flex-direction: column;
         
         span {
-            margin-right: 10px;
+            width: 90px;
+            margin-bottom: 5px;
         }
         
         > div {
             margin-left: 20px;
             text-align: left;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            flex-flow: row;
+            margin-top: 10px;
+            
+            .button {
+                margin: unset;
+                margin-right: 10px;
+            }
         }
     }
     

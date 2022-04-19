@@ -25,15 +25,15 @@ class EditCharacter extends Component {
         } = this.state
         
         return(
-            <div className={`add-characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
-                <div className='add-characters-modal'>
+            <div className={`characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
+                <div className='characters-modal'>
                     <div className='character-modal-title'>
                         <h2>{`Edit ${character.name}`}</h2>
                         <div className="button" onClick={() => closeModal()}>
                             <span>X</span>
                         </div>
                     </div>
-                    <div className='add-character-info'>
+                    <div className='modal-character-info'>
                         <div>
                             <span>Name</span>
                             <input
@@ -95,20 +95,22 @@ class EditCharacter extends Component {
                                 }}
                             />
                         </div>
-                        <div 
-                            className='button' 
-                            onClick={() => {
-                                editCharacter(currentCharacterInfo, index);
-                                closeModal();
-                            }}
-                        >
-                            Apply
-                        </div>
-                        <div 
-                            className='button' 
-                            onClick={() => {addCharacter(currentCharacterInfo)}}
-                        >
-                            Copy
+                        <div className='modal-buttons'>
+                            <div 
+                                className='button' 
+                                onClick={() => {
+                                    editCharacter(currentCharacterInfo, index);
+                                    closeModal();
+                                }}
+                            >
+                                Apply
+                            </div>
+                            <div 
+                                className='button' 
+                                onClick={() => {addCharacter(currentCharacterInfo)}}
+                            >
+                                Copy
+                            </div>
                         </div>
                     </div>
                 </div>

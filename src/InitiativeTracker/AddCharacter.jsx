@@ -27,15 +27,15 @@ class AddCharacter extends Component {
             character
         }= this.state
         return(
-            <div className={`add-characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
-                <div className='add-characters-modal'>
+            <div className={`characters-modal-wrapper ${modalOpen ? 'show' : ''}`}>
+                <div className='characters-modal'>
                     <div className='character-modal-title'>
                         <h2>Add Characters to Initiative</h2>
                         <div className="button" onClick={() => closeModal()}>
                             <span>X</span>
                         </div>
                     </div>
-                    <div className='add-character-info'>
+                    <div className='modal-character-info'>
                         <div>
                             <span>Name</span>
                             <input
@@ -97,29 +97,31 @@ class AddCharacter extends Component {
                                 }}
                             />
                         </div>
-                        <div 
-                            className='button' 
-                            onClick={() => {
-                                addCharacter(character);
-                                this.setState({character: {
-                                    name: '',
-                                    initiative: 0,
-                                    ac: 0,
-                                    maxHealth: 0,
-                                    currentHealth: 0,
-                                    conditions: ''
-                                }})
-                            }}
-                        >
-                            Add Character
-                        </div>
-                        <div 
-                            className='button' 
-                            onClick={() => {
-                                addCharacter(character);
-                            }}
-                        >
-                            Add Character & Keep Values
+                        <div className='modal-buttons'>
+                            <div 
+                                className='button' 
+                                onClick={() => {
+                                    addCharacter(character);
+                                    this.setState({character: {
+                                        name: '',
+                                        initiative: 0,
+                                        ac: 0,
+                                        maxHealth: 0,
+                                        currentHealth: 0,
+                                        conditions: ''
+                                    }})
+                                }}
+                            >
+                                Add Character
+                            </div>
+                            <div 
+                                className='button' 
+                                onClick={() => {
+                                    addCharacter(character);
+                                }}
+                            >
+                                Add & Keep Values
+                            </div>
                         </div>
                     </div>
                 </div>

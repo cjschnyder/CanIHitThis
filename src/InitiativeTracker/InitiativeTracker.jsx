@@ -106,12 +106,12 @@ class InitiativeTracker extends Component {
                                     >
                                         <span>+ Add</span>
                                     </div>
-                                    <div className="button long" onClick={() => {
+                                    <div className="button long" onClick={() => 
                                         characters.length && (
                                             sortCharacters(),
                                             initiateCombat()
                                         )
-                                    }}>
+                                    }>
                                         <span>Sort & Start Combat</span>
                                     </div>
                                 </div>
@@ -145,15 +145,15 @@ class InitiativeTracker extends Component {
                     modalOpen={showAddCharacterModal}
                     closeModal={() => toggleAddCharModal()}
                 />
-                <div className={`save-initiative-modal add-characters-modal-wrapper ${saveInitiativeModal ? 'show' : ''}`}>
-                    <div className='add-characters-modal'>
+                <div className={`save-initiative-modal characters-modal-wrapper ${saveInitiativeModal ? 'show' : ''}`}>
+                    <div className='characters-modal'>
                         <div className='character-modal-title'>
                             <h2>Save Initiative List As...</h2>
                             <div className="button" onClick={() => this.setState({saveInitiativeModal: false})}>
                                 <span>X</span>
                             </div>
                         </div>
-                        <div className='add-character-info'>
+                        <div className='modal-character-info'>
                             <div>
                                 <span>Name</span>
                                 <input
@@ -178,8 +178,8 @@ class InitiativeTracker extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={`add-characters-modal-wrapper ${loadInitiativeModal ? 'show' : ''}`}>
-                    <div className='add-characters-modal'>
+                <div className={`characters-modal-wrapper ${loadInitiativeModal ? 'show' : ''}`}>
+                    <div className='characters-modal'>
                         <div className='character-modal-title'>
                             <h2>Saved Initiatives</h2>
                             <div className="button" onClick={() => this.setState({loadInitiativeModal: false})}>

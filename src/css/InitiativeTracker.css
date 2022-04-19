@@ -151,7 +151,7 @@
   margin-right: 5px; }
   #hitThis .character-settings .button {
     width: 60px; }
-  #hitThis .character-settings #health-input {
+  #hitThis .character-settings .health-input {
     display: inline-block;
     width: 65px; }
   #hitThis .character-settings > div {

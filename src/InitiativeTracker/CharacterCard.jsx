@@ -80,24 +80,24 @@ class CharacterCard extends Component {
                             onClick={() => {
                             updateHealth(
                                 index, 
-                                parseInt(document.querySelector('#health-input').value, 10) || 0,
+                                parseInt(document.querySelectorAll('.health-input')[index].value, 10) || 0,
                                 true
                             );
-                            document.querySelector('#health-input').value = null;
+                            document.querySelectorAll('.health-input')[index].value = null;
                             }}
                         >
                             <span>Heal</span>
                         </div>
-                        <input id="health-input" type="text"/>
+                        <input class="health-input" type="text"/>
                         <div
                             className='button harm'
                             onClick={() => {
                                 updateHealth(
                                     index, 
-                                    parseInt(document.querySelector('#health-input').value, 10) || 0,
+                                    parseInt(document.querySelectorAll('.health-input')[index].value, 10) || 0,
                                     false
                                 );
-                                document.querySelector('#health-input').value = null;
+                                document.querySelectorAll('.health-input')[index].value = null;
                             }}
                         >
                             <span>Damage</span>

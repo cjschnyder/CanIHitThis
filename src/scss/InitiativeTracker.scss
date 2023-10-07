@@ -1,0 +1,277 @@
+#hitThis{
+    .initiative-list {
+        background-color: #242528;
+        overflow-y: scroll;
+        height: calc(100vh - 90px);
+        flex-flow: row wrap;
+        order: 1;
+        flex: 1;
+        min-width: 510px;
+        
+        .title-and-options {
+            display: flex;
+            flex-direction: row;
+            margin-left:20px;
+        
+            .button {
+                margin-top: 14px;
+                margin-left: 5px;
+                height: auto;
+                
+                &.long {
+                    max-width: none;
+                }
+                
+                span {
+                    display:inline-block;
+                    padding: 0 5px;
+                    font-size: 1.25em;
+                }
+            }
+            
+            h2 {
+                margin-bottom: 0;
+                margin-right: auto;
+            }
+        }
+        
+        .character {
+            margin: 10px;
+            height: 100px;
+            border: 2px solid #fafafa;
+            border-radius: 5px; 
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: row;
+            
+            &.current {
+                box-shadow: 0px 0px 10px 6px #97fb98;
+            }
+            
+            .initiative{
+                background: #242528;
+                width: 80px;
+                height: 100%;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                
+                span {
+                    margin: 10px 0;
+                    font-size: 1.25em;
+                }
+                
+                h2 {
+                    margin-top: 0;
+                }
+            }
+            
+            .character-stats {
+                color: #242528;
+                font-weight: bold;
+                padding: 0 8px;
+                display: flex;
+                flex-direction: column;
+                text-align: left;
+                
+                .character-name {
+                    font-size: 1.5em;
+                }
+                
+                .current-health {
+                    width: 30px;
+                }
+                
+                .health-and-ac, .conditions {
+                    margin-top: 5px;
+                    span {
+                        margin-right: 20px;
+                    }
+                }
+                
+                .conditions {
+                    span {
+                        margin-right: 5px;
+                    }
+                    
+                    &.hide {
+                        display: none;
+                    }
+                }
+                
+            }
+        }
+    }
+    .character-info {
+        background-color: #fafafa;
+        color: #242528;
+        height: calc(100vh - 90px);
+        overflow: scroll;
+        flex-flow: row wrap;
+        order: 2;
+        flex: 3;
+    }
+    
+    
+    .characters-modal-wrapper {
+        .characters-modal {
+            display: none;
+            background-color: #242528;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 3;
+            left: 50%;
+            top: 150px;
+            position: absolute;
+            width: 500px;
+            height: 600px;
+            border-radius: 10px;
+            transform: translateX(-50%);
+            border: 2px solid #fafafa;
+            overflow-y: scroll;
+        }
+        
+        &.show {
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(180, 180, 180, 0.6);
+            
+            .characters-modal {
+                display: block;
+            }
+        }
+        
+        .load-initative-list {
+            .load-item {
+                margin-bottom: 25px;
+                h3 {
+                    display: inline;
+                }
+                .button {
+                    display: inline;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    
+    .save-initiative-modal {
+        .characters-modal {
+            height: 200px;
+        }
+    }
+    
+    .modal-character-info {
+        display: flex;
+        flex-direction: column;
+        
+        span {
+            width: 90px;
+            margin-bottom: 5px;
+        }
+        
+        > div {
+            margin-left: 20px;
+            text-align: left;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            flex-flow: row;
+            margin-top: 10px;
+            
+            .button {
+                margin: unset;
+                margin-right: 10px;
+            }
+        }
+    }
+    
+    .character-modal-title {
+        display: flex;
+        flex-direction: row;
+        
+        h2{
+            margin-left: 20px;
+        }
+        
+        .button {
+            margin-right: 6px;
+            border: none;
+            padding-top: 15px;
+            font-size: 1.25em;
+            width: 40px;
+        }
+    }
+    
+    .header-buttons {
+        display: flex;
+        flex-direction: row;
+        margin-right: 10px;
+    }
+    
+    .character-settings {
+        display: flex;
+        flex-direction: row;
+        margin-left: auto;
+        margin-right: 5px;
+        
+        .button {
+            width: 60px;
+        }
+            
+        .health-input {
+            display:inline-block;
+            width: 65px;
+        }
+        
+        > div {
+            margin-right: 10px;
+        }
+    }
+    
+    .change-health, .remove-edit {
+        :first-child {
+            margin-top: 2px;
+        }
+    }
+    
+    .move-initiative {
+        height: 100%;
+        
+        .button {
+            padding: 0;
+            margin: 0;
+            width: 25px;
+            height: 46px;
+        }
+        
+        .move-up {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 0;
+            
+            span {
+                margin-top: 12px;
+                margin-right: 1.5px;
+                transform: rotate(-90deg);
+            }
+        }
+        
+        .move-down {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 5px;
+            
+            span {
+                margin-top: 12px;
+                margin-left: 1.5px;
+                transform: rotate(90deg);
+            }
+        }
+    }
+}

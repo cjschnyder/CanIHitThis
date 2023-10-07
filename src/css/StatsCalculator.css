@@ -1,0 +1,86 @@
+.wrapper {
+  display: flex; }
+  .wrapper .input-and-damage {
+    background-color: #242528;
+    height: calc(100vh - 90px);
+    flex-flow: row wrap;
+    order: 1;
+    flex: 1; }
+    .wrapper .input-and-damage h2 {
+      margin: 20px 0px 10px 0px; }
+    .wrapper .input-and-damage .inputs {
+      padding: 5px;
+      display: flex;
+      flex-flow: row;
+      min-height: 25px; }
+      .wrapper .input-and-damage .inputs span {
+        flex: 1; }
+      .wrapper .input-and-damage .inputs input {
+        flex: 1;
+        margin-right: 10px; }
+    .wrapper .input-and-damage .ac-input {
+      padding: 5px;
+      display: flex; }
+      .wrapper .input-and-damage .ac-input span {
+        order: 1;
+        flex: 1; }
+      .wrapper .input-and-damage .ac-input .ac-start {
+        order: 2;
+        flex: 1;
+        margin-right: 10px; }
+      .wrapper .input-and-damage .ac-input .ac-end {
+        order: 4;
+        flex: 1;
+        margin-right: 10px; }
+    .wrapper .input-and-damage .adv-disadv-buttons {
+      display: flex;
+      flex-flow: row; }
+      .wrapper .input-and-damage .adv-disadv-buttons .button.active {
+        box-shadow: 0px 0px 10px 6px #97fb98; }
+    .wrapper .input-and-damage .dice-inputs {
+      display: flex; }
+      .wrapper .input-and-damage .dice-inputs .die-field {
+        flex: 1;
+        margin-top: 10px; }
+        .wrapper .input-and-damage .dice-inputs .die-field input, .wrapper .input-and-damage .dice-inputs .die-field select {
+          display: inline-block;
+          width: 45px;
+          margin-left: 15px; }
+        .wrapper .input-and-damage .dice-inputs .die-field select {
+          color: #000;
+          background: #fff; }
+      .wrapper .input-and-damage .dice-inputs .subtract-die {
+        text-align: center;
+        margin-top: 7px;
+        margin-right: 10px;
+        padding: 3px 5px; }
+        .wrapper .input-and-damage .dice-inputs .subtract-die:hover {
+          background-color: #37383b;
+          cursor: pointer; }
+        .wrapper .input-and-damage .dice-inputs .subtract-die:active {
+          color: #242528;
+          background-color: #fafafa;
+          cursor: pointer; }
+    .wrapper .input-and-damage .damage-numbers {
+      display: flex;
+      margin-top: 10px; }
+      .wrapper .input-and-damage .damage-numbers > div {
+        flex: 1;
+        flex-direction: column;
+        display: flex; }
+        .wrapper .input-and-damage .damage-numbers > div .damage-average {
+          font-size: 32px; }
+  .wrapper .data-table {
+    background-color: #fafafa;
+    color: #242528;
+    height: calc(100vh - 90px);
+    overflow: scroll;
+    flex-flow: row wrap;
+    order: 2;
+    flex: 3; }
+    .wrapper .data-table .no-attacks {
+      text-align: left;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-left: 15px; }

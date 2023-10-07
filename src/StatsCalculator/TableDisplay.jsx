@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './css/TableDisplay.css';
+import '../css/TableDisplay.css';
 
 class TableDisplay extends Component {
     render() {

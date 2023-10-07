@@ -3,18 +3,22 @@
   "version": "1.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^1.1.5"
+    "@reduxjs/toolkit": "^1.6.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^1.1.5",
+    "redux": "^4.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "local": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "redact-scripts eject",
     "scss": "node-sass --watch src/scss -o src/css"
   },
-  "description": "From the deep realms of Anstrelax comes the dark magic of math.",
+  "description": "From the deep realms of Anstraver comes the dark magic of math.",
   "main": "index.jsx",
   "devDependencies": {
     "node-sass": "^4.14.1"

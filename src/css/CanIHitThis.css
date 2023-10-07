@@ -1,0 +1,54 @@
+#hitThis {
+  text-align: center;
+  flex: 1 100%;
+  width: 100%;
+  color: white; }
+  #hitThis header {
+    background-color: #242528;
+    height: 80px;
+    padding: 5px;
+    margin: 0px;
+    flex-direction: row;
+    display: flex; }
+    #hitThis header .dice-logo {
+      height: 71px;
+      margin-top: 5px;
+      margin-left: 10px; }
+    #hitThis header .title {
+      margin-top: 25px;
+      font-size: 28px; }
+    #hitThis header .nav-menu {
+      display: flex;
+      flex-direction: row; }
+      #hitThis header .nav-menu .link {
+        height: 50px;
+        margin-left: 20px;
+        margin-top: 15px;
+        padding-left: 10px;
+        border-left: 2px solid #fff;
+        transform: skewX(-15deg); }
+        #hitThis header .nav-menu .link span {
+          color: white;
+          transform: skewX(15deg);
+          display: inline-block;
+          font-weight: bold;
+          padding-top: 17px;
+          text-decoration: none; }
+          #hitThis header .nav-menu .link span :active {
+            color: #242528; }
+  #hitThis .button {
+    border: 2px solid #999;
+    max-width: 100px;
+    padding: 5px;
+    margin: 5px auto;
+    border-radius: 3px;
+    background-color: #242528; }
+    #hitThis .button:hover {
+      background-color: #37383b;
+      cursor: pointer; }
+    #hitThis .button:active {
+      color: #242528;
+      background-color: #fafafa;
+      cursor: pointer; }
+  #hitThis span {
+    display: inline-block; }
